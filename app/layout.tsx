@@ -23,7 +23,7 @@ export default function RootLayout({
   const localBusinessSchema = generateStructuredData('localBusiness');
 
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
         <link rel="icon" href="/assets/favicon.png" />
         <link rel="apple-touch-icon" href="/assets/logo.png" />
