@@ -4,20 +4,29 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'tacostechnologies.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.tacostechnologies.com',
+      },
     ],
   },
+
+  // Performance optimizations
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
   
-  // Performance optimizations
-  // Note: optimizeCss requires 'critters' package - disabled for simpler deployment
-  
+  // Enable experimental features for better performance
+  experimental: {
+    optimizePackageImports: ['framer-motion', 'lucide-react'],
+  },
+
   // Security headers
   async headers() {
     return [
@@ -26,42 +35,73 @@ const nextConfig = {
         headers: [
           {
             key: 'X-DNS-Prefetch-Control',
-            value: 'on'
+            value: 'on',
           },
           {
             key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload'
+            value: 'max-age=63072000; includeSubDomains; preload',
           },
           {
             key: 'X-Content-Type-Options',
-            value: 'nosniff'
+            value: 'nosniff',
           },
           {
             key: 'X-Frame-Options',
-            value: 'SAMEORIGIN'
+            value: 'SAMEORIGIN',
           },
           {
             key: 'X-XSS-Protection',
-            value: '1; mode=block'
+            value: '1; mode=block',
           },
           {
             key: 'Referrer-Policy',
-            value: 'origin-when-cross-origin'
+            value: 'strict-origin-when-cross-origin',
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
-          }
+            value: 'camera=(), microphone=(), geolocation=(self)',
+          },
+          {
+            key: 'Content-Security-Policy',
+            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com; frame-ancestors 'self';",
+          },
         ],
       },
       {
+        // Cache static assets aggressively
         source: '/assets/(.*)',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable'
-          }
+            value: 'public, max-age=31536000, immutable',
+          },
         ],
+      },
+      {
+        // Cache fonts
+        source: '/(.*\\.woff2?)',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+    ];
+  },
+
+  // Redirects for SEO
+  async redirects() {
+    return [
+      {
+        source: '/home',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/services',
+        destination: '/#services',
+        permanent: true,
       },
     ];
   },

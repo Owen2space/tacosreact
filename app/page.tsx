@@ -12,39 +12,39 @@ import ParallaxImages from '@/components/ParallaxImages';
 const services = [
   {
     title: 'Precision Agriculture',
-    description: 'Advanced crop monitoring, multispectral imaging, and precision spraying for maximum yield optimization.',
+    description: 'Multispectral imaging, crop health analytics, and precision application systems for optimized agricultural operations.',
     icon: '',
     image: '/assets/dji-4223416_1920.webp',
-    features: ['Crop Health Analysis', 'Precision Spraying', 'Yield Mapping'],
+    features: ['Crop Health Analysis', 'Precision Application', 'Yield Mapping'],
   },
   {
     title: 'Security & Surveillance',
-    description: 'Real-time aerial monitoring with thermal imaging and AI-powered threat detection systems.',
+    description: 'Real-time aerial monitoring with thermal imaging and intelligent threat detection for perimeter and asset protection.',
     icon: '',
     image: '/assets/low-angle-man-watching-drone.webp',
-    features: ['24/7 Monitoring', 'Thermal Imaging', 'AI Detection'],
+    features: ['24/7 Monitoring', 'Thermal Imaging', 'Threat Detection'],
   },
   {
     title: 'Emergency Response',
-    description: 'Rapid deployment for search & rescue, disaster assessment, and emergency medical deliveries.',
+    description: 'Rapid deployment capabilities for search & rescue, disaster assessment, and critical supply delivery operations.',
     icon: '',
     image: '/assets/christopher-burns-xoMWD3nqEGg-unsplash.webp',
-    features: ['Rapid Deployment', 'Search & Rescue', 'Medical Delivery'],
+    features: ['Rapid Deployment', 'Search & Rescue', 'Critical Delivery'],
   },
   {
-    title: 'Logistics & Delivery',
-    description: 'Efficient last-mile delivery solutions for remote areas and time-critical shipments.',
+    title: 'Infrastructure Inspection',
+    description: 'Comprehensive aerial assessment of power lines, pipelines, bridges, and structures with detailed reporting.',
     icon: '',
     image: '/assets/drone-flying-mountains.webp',
-    features: ['Last-Mile Delivery', 'Remote Access', 'Express Shipping'],
+    features: ['Asset Inspection', 'Structural Analysis', 'Detailed Reporting'],
   },
 ];
 
 const stats = [
   { value: '4+', label: 'Industries Served' },
-  { value: '10+', label: 'Projects Delivered' },
-  { value: 'Kenya', label: 'Based in East Africa' },
-  { value: '24/7', label: 'Support Available' },
+  { value: '10+', label: 'Missions Completed' },
+  { value: 'Kenya', label: 'East Africa HQ' },
+  { value: '24/7', label: 'Operational Support' },
 ];
 
 export default function Home() {
@@ -59,20 +59,19 @@ export default function Home() {
   const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
 
   return (
-    <main className="relative">
-      {/* Hero Section */}
+    <main className="relative bg-[#f8f9fa]">
+      {/* Hero Section - Keep dark for impact */}
       <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0">
           <Image
             src="/assets/drone-flying-mountains.webp"
-            alt="Drone flying"
+            alt="Aerial operations"
             fill
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-[#0a0a0a]" />
-          <div className="absolute inset-0 gradient-mesh opacity-40" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#f8f9fa]" />
         </div>
 
         {/* Hero Content */}
@@ -80,24 +79,33 @@ export default function Home() {
           style={{ y: heroY, opacity: heroOpacity, scale: heroScale }}
           className="relative z-10 container-custom text-center"
         >
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-sm md:text-base text-gray-300 uppercase tracking-[0.2em] mb-6"
+          >
+            Advanced Aerial Data & Operational Solutions
+          </motion.p>
+
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-display mb-8 text-white text-shadow"
           >
-            <span className="block">Elevate Your</span>
-            <span className="gradient-text-primary">Operations</span>
+            <span className="block">Command</span>
+            <span className="text-[#2d5a8a]">the Sky</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-12"
+            className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-12"
           >
-            Professional drone solutions for agriculture, security, emergency response, 
-            and logistics across the African continent.
+            We deliver accurate geospatial intelligence to support planning, 
+            monitoring, and operational decision-making across East Africa.
           </motion.p>
 
           <motion.div
@@ -112,25 +120,24 @@ export default function Home() {
                 whileTap={{ scale: 0.95 }}
                 className="btn-primary text-lg"
               >
-                Start Your Mission
+                Request Consultation
               </motion.button>
             </Link>
             <Link href="/#services">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="btn-outline text-lg"
+                className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white font-semibold rounded-full border border-white/30 hover:bg-white/30 transition-all text-lg"
               >
-                Explore Services
+                View Capabilities
               </motion.button>
             </Link>
           </motion.div>
         </motion.div>
-
       </section>
 
       {/* Stats Section */}
-      <section className="relative py-20 bg-[#0a0a0a]">
+      <section className="relative py-20 bg-white">
         <div className="container-custom">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -142,8 +149,8 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="text-center"
               >
-                <div className="text-4xl md:text-5xl font-bold text-white mb-2">{stat.value}</div>
-                <div className="text-gray-400 text-sm uppercase tracking-wider">{stat.label}</div>
+                <div className="text-4xl md:text-5xl font-bold text-[#1e3a5f] mb-2">{stat.value}</div>
+                <div className="text-gray-500 text-sm uppercase tracking-wider">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -151,7 +158,7 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="relative section-padding bg-[#0a0a0a]">
+      <section id="services" className="relative section-padding bg-[#f8f9fa]">
         <div className="absolute inset-0 grid-pattern opacity-50" />
         <div className="relative container-custom">
           <motion.div
@@ -161,14 +168,14 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <span className="text-red-500 text-sm font-semibold uppercase tracking-wider mb-4 block">
-              What We Offer
+            <span className="text-[#2d5a8a] text-sm font-semibold uppercase tracking-wider mb-4 block">
+              Capabilities
             </span>
-            <h2 className="text-headline text-white mb-6">
-              Our Services
+            <h2 className="text-headline text-[#1a1a2e] mb-6">
+              Operational Solutions
             </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Comprehensive drone solutions tailored for African markets and challenges
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Mission-critical aerial intelligence tailored for diverse operational requirements
             </p>
           </motion.div>
 
@@ -194,11 +201,11 @@ export default function Home() {
         <div className="absolute inset-0">
           <Image
             src="/assets/medium-shot-smiley-woman-with-drone-outside.webp"
-            alt="Drone operator"
+            alt="Operations team"
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#1e3a5f]/95 via-[#1e3a5f]/80 to-[#1e3a5f]/95" />
         </div>
 
         <div className="relative container-custom">
@@ -210,29 +217,29 @@ export default function Home() {
               viewport={{ once: true }}
             >
               <h2 className="text-headline text-white mb-6">
-                Ready to Transform Your Operations?
+                Ready to Optimize Your Operations?
               </h2>
-              <p className="text-xl text-gray-300 mb-10">
-                Partner with us to leverage drone technology 
-                for unprecedented efficiency and insights.
+              <p className="text-xl text-gray-200 mb-10">
+                Partner with TACOS Technologies to leverage precision aerial data 
+                for enhanced operational efficiency and informed decision-making.
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link href="/contact">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="btn-primary text-lg"
+                    className="px-8 py-4 bg-white text-[#1e3a5f] font-semibold rounded-full hover:bg-gray-100 transition-all text-lg shadow-lg"
                   >
-                    Get a Free Consultation
+                    Schedule a Briefing
                   </motion.button>
                 </Link>
                 <Link href="/about">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="btn-glass text-lg text-white"
+                    className="px-8 py-4 bg-transparent text-white font-semibold rounded-full border-2 border-white/50 hover:bg-white/10 transition-all text-lg"
                   >
-                    Learn More About Us
+                    About TACOS
                   </motion.button>
                 </Link>
               </div>

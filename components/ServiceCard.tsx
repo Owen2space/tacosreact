@@ -26,7 +26,7 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
       viewport={{ once: true }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative h-[500px] rounded-3xl overflow-hidden cursor-pointer"
+      className="group relative h-[500px] rounded-3xl overflow-hidden cursor-pointer shadow-lg"
     >
       {/* Background Image */}
       <div className="absolute inset-0">
@@ -36,17 +36,17 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e] via-[#1a1a2e]/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
       </div>
 
       {/* Animated Border */}
-      <div className="absolute inset-0 rounded-3xl border border-white/10 group-hover:border-red-500/50 transition-colors duration-500" />
+      <div className="absolute inset-0 rounded-3xl border border-white/10 group-hover:border-[#2d5a8a]/50 transition-colors duration-500" />
 
       {/* Glow Effect */}
       <motion.div
         animate={{ opacity: isHovered ? 1 : 0 }}
         transition={{ duration: 0.3 }}
-        className="absolute inset-0 bg-gradient-to-t from-red-600/20 to-transparent pointer-events-none"
+        className="absolute inset-0 bg-gradient-to-t from-[#1e3a5f]/30 to-transparent pointer-events-none"
       />
 
       {/* Content */}
@@ -96,8 +96,8 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
           animate={{ y: isHovered ? 0 : 20, opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 0.3, delay: 0.15 }}
         >
-          <button className="inline-flex items-center gap-2 text-red-500 font-semibold group/btn">
-            Learn More
+          <button className="inline-flex items-center gap-2 text-[#2d5a8a] font-semibold group/btn">
+            View Details
             <motion.span
               animate={{ x: isHovered ? 5 : 0 }}
               transition={{ duration: 0.3 }}
@@ -113,7 +113,7 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
         <motion.div
           animate={{ rotate: isHovered ? 90 : 0 }}
           transition={{ duration: 0.5 }}
-          className="w-8 h-8 border-t-2 border-r-2 border-white/30 group-hover:border-red-500 transition-colors duration-500"
+          className="w-8 h-8 border-t-2 border-r-2 border-white/30 group-hover:border-[#2d5a8a] transition-colors duration-500"
         />
       </div>
     </motion.div>

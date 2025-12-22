@@ -7,8 +7,8 @@ const services = [
   'Precision Agriculture',
   'Security & Surveillance',
   'Emergency Response',
-  'Logistics & Delivery',
   'Infrastructure Inspection',
+  'Aerial Surveying',
   'Custom Solution',
 ];
 
@@ -30,7 +30,7 @@ export default function ContactForm() {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
-    
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -52,8 +52,10 @@ export default function ContactForm() {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData(prev => ({
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
@@ -70,15 +72,20 @@ export default function ContactForm() {
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: 'spring', delay: 0.2 }}
-          className="w-20 h-20 mx-auto mb-6 rounded-full bg-green-500/20 flex items-center justify-center"
+          className="w-20 h-20 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center"
         >
-          <svg className="w-10 h-10 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg
+            className="w-10 h-10 text-green-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </motion.div>
-        <h3 className="text-2xl font-bold text-white mb-4">Message Sent!</h3>
-        <p className="text-gray-400 mb-8">
-          Thank you for reaching out. Our team will get back to you within 24 hours.
+        <h3 className="text-2xl font-bold text-[#1a1a2e] mb-4">Request Received</h3>
+        <p className="text-gray-600 mb-8">
+          Thank you for your inquiry. Our team will respond within 24 hours.
         </p>
         <motion.button
           whileHover={{ scale: 1.05 }}
@@ -87,9 +94,9 @@ export default function ContactForm() {
             setIsSubmitted(false);
             setFormData({ name: '', email: '', company: '', phone: '', service: '', message: '' });
           }}
-          className="px-6 py-3 bg-white/10 text-white rounded-full hover:bg-white/20 transition-colors"
+          className="px-6 py-3 bg-[#f8f9fa] text-[#1a1a2e] rounded-full hover:bg-gray-200 transition-colors border border-gray-200"
         >
-          Send Another Message
+          Submit Another Request
         </motion.button>
       </motion.div>
     );
@@ -104,7 +111,7 @@ export default function ContactForm() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
         >
-          <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
             Full Name *
           </label>
           <input
@@ -125,7 +132,7 @@ export default function ContactForm() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
         >
-          <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
             Email Address *
           </label>
           <input
@@ -146,8 +153,8 @@ export default function ContactForm() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
-          <label htmlFor="company" className="block text-sm font-medium text-gray-300 mb-2">
-            Company
+          <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">
+            Organization
           </label>
           <input
             type="text"
@@ -156,7 +163,7 @@ export default function ContactForm() {
             value={formData.company}
             onChange={handleChange}
             className="input-modern"
-            placeholder="Your Company"
+            placeholder="Your Organization"
           />
         </motion.div>
 
@@ -166,7 +173,7 @@ export default function ContactForm() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-300 mb-2">
+          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
             Phone Number
           </label>
           <input
@@ -187,7 +194,7 @@ export default function ContactForm() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
       >
-        <label htmlFor="service" className="block text-sm font-medium text-gray-300 mb-2">
+        <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
           Service Interest *
         </label>
         <select
@@ -198,9 +205,11 @@ export default function ContactForm() {
           onChange={handleChange}
           className="input-modern appearance-none cursor-pointer"
         >
-          <option value="" disabled>Select a service</option>
-          {services.map(service => (
-            <option key={service} value={service} className="bg-gray-900">
+          <option value="" disabled>
+            Select a capability
+          </option>
+          {services.map((service) => (
+            <option key={service} value={service}>
               {service}
             </option>
           ))}
@@ -213,8 +222,8 @@ export default function ContactForm() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
       >
-        <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-          Message *
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+          Project Details *
         </label>
         <textarea
           id="message"
@@ -224,7 +233,7 @@ export default function ContactForm() {
           value={formData.message}
           onChange={handleChange}
           className="input-modern resize-none"
-          placeholder="Tell us about your project and requirements..."
+          placeholder="Describe your operational requirements and objectives..."
         />
       </motion.div>
 
@@ -240,21 +249,33 @@ export default function ContactForm() {
           whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
           whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
           className={`w-full py-4 rounded-full font-semibold text-white transition-all duration-300 ${
-            isSubmitting 
-              ? 'bg-gray-600 cursor-not-allowed' 
-              : 'bg-red-600 hover:bg-red-500 shadow-lg shadow-red-600/30'
+            isSubmitting
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-[#1e3a5f] hover:bg-[#2d5a8a] shadow-lg shadow-[#1e3a5f]/20'
           }`}
         >
           {isSubmitting ? (
             <span className="flex items-center justify-center gap-2">
               <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                  fill="none"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
               </svg>
-              Sending...
+              Processing...
             </span>
           ) : (
-            'Send Message'
+            'Submit Request'
           )}
         </motion.button>
       </motion.div>
@@ -264,24 +285,11 @@ export default function ContactForm() {
         <motion.div
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="p-4 rounded-xl bg-red-500/20 border border-red-500/50 text-red-400 text-center"
+          className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-600 text-center"
         >
           {error}
         </motion.div>
       )}
-
-      {/* Privacy Note */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8 }}
-        className="text-center text-sm text-gray-500"
-      >
-        By submitting this form, you agree to our{' '}
-        <a href="#" className="text-red-500 hover:underline">Privacy Policy</a>
-        {' '}and{' '}
-        <a href="#" className="text-red-500 hover:underline">Terms of Service</a>.
-      </motion.p>
     </form>
   );
 }
