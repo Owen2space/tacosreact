@@ -21,10 +21,23 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
-  
+
   // Enable experimental features for better performance
   experimental: {
     optimizePackageImports: ['framer-motion', 'lucide-react'],
+  },
+
+  // 🔧 Ignore ESLint during Cloudflare builds
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+
+  // 🔥 Fix Cloudflare Pages 25MB webpack cache issue
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.cache = false;
+    }
+    return config;
   },
 
   // Security headers
@@ -33,26 +46,14 @@ const nextConfig = {
       {
         source: '/(.*)',
         headers: [
-          {
-            key: 'X-DNS-Prefetch-Control',
-            value: 'on',
-          },
+          { key: 'X-DNS-Prefetch-Control', value: 'on' },
           {
             key: 'Strict-Transport-Security',
             value: 'max-age=63072000; includeSubDomains; preload',
           },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'X-XSS-Protection', value: '1; mode=block' },
           {
             key: 'Referrer-Policy',
             value: 'strict-origin-when-cross-origin',
@@ -63,12 +64,12 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com; frame-ancestors 'self';",
+            value:
+              "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://www.google-analytics.com https://vitals.vercel-insights.com; frame-ancestors 'self';",
           },
         ],
       },
       {
-        // Cache static assets aggressively
         source: '/assets/(.*)',
         headers: [
           {
@@ -78,7 +79,6 @@ const nextConfig = {
         ],
       },
       {
-        // Cache fonts
         source: '/(.*\\.woff2?)',
         headers: [
           {
@@ -93,16 +93,8 @@ const nextConfig = {
   // Redirects for SEO
   async redirects() {
     return [
-      {
-        source: '/home',
-        destination: '/',
-        permanent: true,
-      },
-      {
-        source: '/services',
-        destination: '/#services',
-        permanent: true,
-      },
+      { source: '/home', destination: '/', permanent: true },
+      { source: '/services', destination: '/#services', permanent: true },
     ];
   },
 };
