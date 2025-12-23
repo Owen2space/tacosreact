@@ -5,6 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 
+// Apple-style smooth easing
+const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const navLinks = [
   { name: 'Home', href: '/' },
   { name: 'Capabilities', href: '/#services' },
@@ -20,19 +23,19 @@ export default function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <>
       <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        initial={{ y: -100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: smoothEase }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
           isScrolled 
-            ? 'py-3 bg-white/95 backdrop-blur-md shadow-sm' 
+            ? 'py-3 bg-white/80 backdrop-blur-xl shadow-sm' 
             : 'py-6 bg-transparent'
         }`}
       >
@@ -87,14 +90,15 @@ export default function Header() {
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5 }}
+              transition={{ delay: 0.5, ease: smoothEase }}
               className="hidden md:block"
             >
               <Link href="/contact">
                 <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-6 py-3 bg-[#1e3a5f] text-white text-sm font-semibold rounded-full hover:bg-[#2d5a8a] transition-all duration-300 shadow-lg shadow-[#1e3a5f]/20"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.2, ease: smoothEase }}
+                  className="px-6 py-3 bg-[#1e3a5f] text-white text-sm font-semibold rounded-full hover:bg-[#2d5a8a] transition-colors duration-300"
                 >
                   Get Started
                 </motion.button>

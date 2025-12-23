@@ -9,6 +9,9 @@ import DroneShowcase from '@/components/DroneShowcase';
 import VideoShowcase from '@/components/VideoShowcase';
 import ParallaxImages from '@/components/ParallaxImages';
 
+// Apple-style smooth easing
+const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const services = [
   {
     title: 'Precision Agriculture',
@@ -42,7 +45,7 @@ const services = [
 
 const stats = [
   { value: '4+', label: 'Industries Served' },
-  { value: '10+', label: 'Missions Completed' },
+  { value: '27+', label: 'Missions Completed' },
   { value: 'Kenya', label: 'East Africa HQ' },
   { value: '24/7', label: 'Operational Support' },
 ];
@@ -77,21 +80,21 @@ export default function Home() {
         {/* Hero Content */}
         <motion.div
           style={{ y: heroY, opacity: heroOpacity, scale: heroScale }}
-          className="relative z-10 container-custom text-center"
+          className="relative z-10 container-custom text-center gpu-accelerate"
         >
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: smoothEase }}
             className="text-sm md:text-base text-gray-300 uppercase tracking-[0.2em] mb-6"
           >
             Advanced Aerial Data & Operational Solutions
           </motion.p>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
+            transition={{ duration: 1, delay: 0.3, ease: smoothEase }}
             className="text-display mb-8 text-white text-shadow"
           >
             <span className="block">Command</span>
@@ -99,25 +102,26 @@ export default function Home() {
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
+            transition={{ duration: 1, delay: 0.4, ease: smoothEase }}
             className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto mb-12"
           >
             We deliver accurate geospatial intelligence to support planning, 
-            monitoring, and operational decision-making across East Africa.
+            monitoring, and operational decision-making worldwide.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 1, delay: 0.5, ease: smoothEase }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Link href="/contact">
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ duration: 0.2, ease: smoothEase }}
                 className="btn-primary text-lg"
               >
                 Request Consultation
@@ -125,8 +129,9 @@ export default function Home() {
             </Link>
             <Link href="/#services">
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ duration: 0.2, ease: smoothEase }}
                 className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white font-semibold rounded-full border border-white/30 hover:bg-white/30 transition-all text-lg"
               >
                 View Capabilities
@@ -143,10 +148,10 @@ export default function Home() {
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: index * 0.1, ease: smoothEase }}
+                viewport={{ once: true, margin: "-50px" }}
                 className="text-center"
               >
                 <div className="text-4xl md:text-5xl font-bold text-[#1e3a5f] mb-2">{stat.value}</div>
@@ -159,13 +164,13 @@ export default function Home() {
 
       {/* Services Section */}
       <section id="services" className="relative section-padding bg-[#f8f9fa]">
-        <div className="absolute inset-0 grid-pattern opacity-50" />
+        <div className="absolute inset-0 grid-pattern opacity-30" />
         <div className="relative container-custom">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: smoothEase }}
+            viewport={{ once: true, margin: "-100px" }}
             className="text-center mb-20"
           >
             <span className="text-[#2d5a8a] text-sm font-semibold uppercase tracking-wider mb-4 block">

@@ -1,36 +1,54 @@
 import type { Metadata } from 'next';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://tacostechnologies.com';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.tacostechnologies.com';
 
 export const defaultMetadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: 'TACOS Technologies | Advanced Aerial Data & Operational Solutions in East Africa',
+    default: 'TACOS Technologies | Advanced Aerial Data & Operational Solutions',
     template: '%s | TACOS Technologies',
   },
   description:
-    'TACOS Technologies delivers mission-critical aerial intelligence and operational solutions across East Africa. Specializing in precision agriculture, infrastructure inspection, security surveillance, aerial surveying, and emergency response services in Kenya and beyond.',
+    'TACOS Technologies delivers mission-critical aerial intelligence and drone services in Kenya, Africa, and worldwide. Specializing in precision agriculture, infrastructure inspection, security surveillance, aerial surveying, and emergency response. Professional UAV operators serving Nairobi, East Africa, and global markets.',
   keywords: [
-    // Primary keywords
+    // Regional keywords - Africa
     'drone services Kenya',
-    'aerial data solutions East Africa',
+    'drone services Africa',
     'UAV services Nairobi',
-    'precision agriculture drones Kenya',
-    'infrastructure inspection drones Africa',
-    // Secondary keywords
-    'geospatial intelligence Kenya',
-    'multispectral crop imaging',
-    'aerial surveying mapping Kenya',
-    'thermal imaging drones',
-    'security surveillance drones Africa',
-    'emergency response UAV',
-    // Long-tail keywords
-    'crop health monitoring drones Kenya',
-    'power line inspection drones East Africa',
-    'agricultural drone services Nairobi',
+    'aerial data solutions East Africa',
+    'drone company Kenya',
+    'drone services in Africa',
+    'best drone services Kenya',
     'professional drone operators Kenya',
+    'drone mapping Kenya',
+    'drone surveying Africa',
+    // Regional keywords - East Africa
+    'drone services Uganda',
+    'drone services Tanzania',
+    'drone services Rwanda',
+    'aerial surveying East Africa',
+    // Industry-specific regional
+    'precision agriculture drones Kenya',
+    'agricultural drone services Africa',
+    'infrastructure inspection drones Kenya',
+    'crop monitoring drones East Africa',
+    'security drones Kenya',
+    'surveillance drones Africa',
+    // Global keywords
+    'drone services',
+    'aerial data solutions',
+    'UAV services',
+    'precision agriculture drones',
+    'infrastructure inspection drones',
+    'geospatial intelligence',
+    'multispectral crop imaging',
+    'aerial surveying mapping',
+    'thermal imaging drones',
+    'emergency response UAV',
+    'professional drone operators',
     // Brand keywords
     'TACOS Technologies',
+    'TACOS Technologies Kenya',
     'Tactical Aerospace Command Operations Solutions',
   ],
   authors: [{ name: 'TACOS Technologies', url: siteUrl }],
@@ -43,18 +61,18 @@ export const defaultMetadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_KE',
+    locale: 'en_US',
     url: siteUrl,
     siteName: 'TACOS Technologies',
-    title: 'TACOS Technologies | Advanced Aerial Data & Operational Solutions',
+    title: 'TACOS Technologies | Drone Services Kenya & Africa | Aerial Solutions',
     description:
-      'Mission-critical aerial intelligence and operational solutions across East Africa. Precision agriculture, infrastructure inspection, security, and emergency response.',
+      'Leading drone services provider in Kenya and Africa. Precision agriculture, infrastructure inspection, aerial surveying, security surveillance. Professional UAV operators serving East Africa and worldwide.',
     images: [
       {
         url: `${siteUrl}/assets/drone-flying-mountains.webp`,
         width: 1200,
         height: 630,
-        alt: 'TACOS Technologies - Advanced Aerial Data & Operational Solutions in East Africa',
+        alt: 'TACOS Technologies - Advanced Aerial Data & Operational Solutions',
         type: 'image/webp',
       },
     ],
@@ -63,9 +81,9 @@ export const defaultMetadata: Metadata = {
     card: 'summary_large_image',
     site: '@tacostechnology',
     creator: '@tacostechnology',
-    title: 'TACOS Technologies | Aerial Data Solutions East Africa',
+    title: 'TACOS Technologies | Drone Services Kenya & Africa',
     description:
-      'Mission-critical aerial intelligence across East Africa. Precision from above.',
+      'Professional drone services in Kenya and Africa. Aerial intelligence, precision agriculture, infrastructure inspection. Serving East Africa and worldwide.',
     images: [`${siteUrl}/assets/drone-flying-mountains.webp`],
   },
   robots: {
@@ -86,6 +104,8 @@ export const defaultMetadata: Metadata = {
     languages: {
       'en-KE': siteUrl,
       'en-US': siteUrl,
+      'en': siteUrl,
+      'x-default': siteUrl,
     },
   },
   category: 'technology',
@@ -94,7 +114,7 @@ export const defaultMetadata: Metadata = {
   },
   other: {
     'geo.region': 'KE',
-    'geo.placename': 'Nairobi',
+    'geo.placename': 'Nairobi, Kenya',
     'geo.position': '-1.2921;36.8219',
     ICBM: '-1.2921, 36.8219',
   },
@@ -102,24 +122,24 @@ export const defaultMetadata: Metadata = {
 
 export const pageMetadata = {
   home: {
-    title: 'TACOS Technologies | Advanced Aerial Data & Operational Solutions in East Africa',
+    title: 'TACOS Technologies | Drone Services Kenya & Africa | Aerial Data Solutions',
     description:
-      'TACOS Technologies delivers mission-critical aerial intelligence and operational solutions across East Africa. Precision agriculture, infrastructure inspection, security surveillance, and emergency response services.',
+      'Leading drone services provider in Kenya and Africa. Professional UAV operators for precision agriculture, infrastructure inspection, aerial surveying, security surveillance. Serving Nairobi, East Africa, and worldwide.',
   },
   about: {
-    title: 'About Us - Tactical Aerospace Command & Operations Solutions',
+    title: 'About TACOS Technologies | Drone Company Kenya | Aerial Solutions Africa',
     description:
-      'Learn about TACOS Technologies - East Africa\'s leading provider of advanced aerial data and operational solutions. Delivering accurate geospatial intelligence for planning, monitoring, and decision-making.',
+      'TACOS Technologies - Kenya\'s professional drone services company. Advanced aerial data and operational solutions for agriculture, infrastructure, security. Serving East Africa and global markets.',
   },
   contact: {
-    title: 'Contact Us - Request a Consultation',
+    title: 'Contact TACOS Technologies | Drone Services Kenya | Get a Quote',
     description:
-      'Contact TACOS Technologies for professional aerial data and operational solutions in Kenya and East Africa. Request a consultation for precision agriculture, infrastructure inspection, or security services.',
+      'Contact TACOS Technologies for professional drone services in Kenya and Africa. Request a consultation for precision agriculture, infrastructure inspection, aerial surveying, or security solutions.',
   },
   services: {
-    title: 'Our Services - Aerial Data & Operational Solutions',
+    title: 'Drone Services Kenya & Africa | Aerial Surveying, Agriculture, Inspection',
     description:
-      'Explore TACOS Technologies comprehensive aerial services: precision agriculture, infrastructure inspection, aerial surveying, security surveillance, and emergency response across East Africa.',
+      'Professional drone services in Kenya and Africa: precision agriculture, infrastructure inspection, aerial surveying, security surveillance, emergency response. Expert UAV operators serving East Africa.',
   },
 };
 
@@ -143,7 +163,7 @@ export function generateStructuredData(
         },
         image: `${siteUrl}/assets/drone-flying-mountains.webp`,
         description:
-          'Advanced aerial data and operational solutions provider delivering mission-critical intelligence across East Africa',
+          'Advanced aerial data and operational solutions provider delivering mission-critical intelligence',
         foundingDate: '2020',
         address: {
           '@type': 'PostalAddress',
@@ -160,7 +180,7 @@ export function generateStructuredData(
             contactType: 'customer service',
             email: 'info@tacostechnologies.com',
             availableLanguage: ['English', 'Swahili'],
-            areaServed: ['KE', 'UG', 'TZ', 'RW', 'ET'],
+            areaServed: ['KE', 'UG', 'TZ', 'RW', 'ET', 'SS', 'SO'],
           },
           {
             '@type': 'ContactPoint',
@@ -168,6 +188,7 @@ export function generateStructuredData(
             contactType: 'sales',
             email: 'info@tacostechnologies.com',
             availableLanguage: ['English'],
+            areaServed: 'Worldwide',
           },
         ],
         sameAs: ['https://www.instagram.com/tacostechnology/'],
@@ -226,7 +247,8 @@ export function generateStructuredData(
           { '@type': 'Country', name: 'Uganda' },
           { '@type': 'Country', name: 'Tanzania' },
           { '@type': 'Country', name: 'Rwanda' },
-          { '@type': 'GeoCircle', geoMidpoint: { '@type': 'GeoCoordinates', latitude: -1.2921, longitude: 36.8219 }, geoRadius: '2000' },
+          { '@type': 'Country', name: 'Ethiopia' },
+          { '@type': 'Continent', name: 'Africa' },
         ],
       };
 
@@ -238,11 +260,11 @@ export function generateStructuredData(
         name: 'TACOS Technologies',
         url: siteUrl,
         description:
-          'Advanced aerial data and operational solutions for agriculture, infrastructure, security, and emergency response across East Africa.',
+          'Advanced aerial data and operational solutions for agriculture, infrastructure, security, and emergency response.',
         publisher: {
           '@id': `${siteUrl}/#organization`,
         },
-        inLanguage: 'en-KE',
+        inLanguage: 'en',
         potentialAction: {
           '@type': 'SearchAction',
           target: {
@@ -251,6 +273,7 @@ export function generateStructuredData(
           },
           'query-input': 'required name=search_term_string',
         },
+        keywords: 'drone services Kenya, drone services Africa, UAV services Nairobi, aerial surveying East Africa, precision agriculture drones',
       };
 
     case 'service':
@@ -258,13 +281,17 @@ export function generateStructuredData(
         '@context': 'https://schema.org',
         '@type': 'Service',
         '@id': `${siteUrl}/#service`,
-        serviceType: 'Aerial Data & Operational Solutions',
+        serviceType: 'Drone Services',
         provider: {
           '@id': `${siteUrl}/#organization`,
         },
         areaServed: [
           { '@type': 'Country', name: 'Kenya' },
-          { '@type': 'Country', name: 'East Africa' },
+          { '@type': 'Country', name: 'Uganda' },
+          { '@type': 'Country', name: 'Tanzania' },
+          { '@type': 'Country', name: 'Rwanda' },
+          { '@type': 'Continent', name: 'Africa' },
+          { '@type': 'Text', name: 'Worldwide' },
         ],
         hasOfferCatalog: {
           '@type': 'OfferCatalog',
@@ -325,26 +352,34 @@ export function generateStructuredData(
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'What industries does TACOS Technologies serve?',
+            name: 'What industries does TACOS Technologies serve in Kenya and Africa?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'TACOS Technologies provides aerial intelligence solutions across multiple sectors, including agriculture, infrastructure & utilities, energy, construction, environmental monitoring, logistics, and security throughout East Africa.',
+              text: 'TACOS Technologies provides professional drone services across multiple sectors in Kenya, East Africa, and worldwide, including agriculture, infrastructure & utilities, energy, construction, environmental monitoring, logistics, and security.',
             },
           },
           {
             '@type': 'Question',
-            name: 'What aerial services do you specialize in?',
+            name: 'What drone services do you offer in Kenya?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'We specialize in geospatial mapping & surveying, multispectral crop analysis, asset and infrastructure inspections, high-resolution imaging & videography, 3D modelling, and rapid-response aerial support.',
+              text: 'We specialize in geospatial mapping & surveying, multispectral crop analysis, asset and infrastructure inspections, high-resolution imaging & videography, 3D modelling, and rapid-response aerial support throughout Kenya and Africa.',
             },
           },
           {
             '@type': 'Question',
-            name: 'What regions do you operate in?',
+            name: 'Where do you provide drone services in Africa?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Our primary operations are centered in Kenya and East Africa, and we support projects across multiple African markets including Uganda, Tanzania, Rwanda, and Ethiopia.',
+              text: 'Our headquarters is in Nairobi, Kenya, and we provide drone services throughout East Africa including Uganda, Tanzania, Rwanda, and Ethiopia. We also support projects across the African continent and worldwide.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'How can I hire drone services in Nairobi, Kenya?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Contact TACOS Technologies at +254 740 161 366 or info@tacostechnologies.com to request a consultation. We offer professional drone services for agriculture, infrastructure inspection, surveying, and security in Nairobi and throughout Kenya.',
             },
           },
         ],

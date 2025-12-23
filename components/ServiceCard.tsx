@@ -4,6 +4,9 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
 
+// Apple-style smooth easing
+const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 interface ServiceCardProps {
   service: {
     title: string;
@@ -20,13 +23,13 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.15 }}
-      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: index * 0.1, ease: smoothEase }}
+      viewport={{ once: true, margin: "-50px" }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative h-[500px] rounded-3xl overflow-hidden cursor-pointer shadow-lg"
+      className="group relative h-[500px] rounded-3xl overflow-hidden cursor-pointer shadow-lg gpu-accelerate"
     >
       {/* Background Image */}
       <div className="absolute inset-0">
@@ -34,27 +37,19 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
           src={service.image}
           alt={service.title}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
+          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          sizes="(max-width: 768px) 100vw, 50vw"
+          loading={index < 2 ? "eager" : "lazy"}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e] via-[#1a1a2e]/50 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e] via-[#1a1a2e]/40 to-transparent opacity-80 group-hover:opacity-90 transition-opacity duration-500" />
       </div>
-
-      {/* Animated Border */}
-      <div className="absolute inset-0 rounded-3xl border border-white/10 group-hover:border-[#2d5a8a]/50 transition-colors duration-500" />
-
-      {/* Glow Effect */}
-      <motion.div
-        animate={{ opacity: isHovered ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
-        className="absolute inset-0 bg-gradient-to-t from-[#1e3a5f]/30 to-transparent pointer-events-none"
-      />
 
       {/* Content */}
       <div className="absolute inset-0 p-8 flex flex-col justify-end">
         {/* Title */}
         <motion.h3
-          animate={{ y: isHovered ? -10 : 0 }}
-          transition={{ duration: 0.3, delay: 0.05 }}
+          animate={{ y: isHovered ? -8 : 0 }}
+          transition={{ duration: 0.4, ease: smoothEase }}
           className="text-2xl md:text-3xl font-bold text-white mb-3"
         >
           {service.title}
@@ -62,8 +57,8 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
 
         {/* Description */}
         <motion.p
-          animate={{ y: isHovered ? -10 : 0, opacity: isHovered ? 1 : 0.8 }}
-          transition={{ duration: 0.3, delay: 0.1 }}
+          animate={{ y: isHovered ? -8 : 0, opacity: isHovered ? 1 : 0.8 }}
+          transition={{ duration: 0.4, ease: smoothEase }}
           className="text-gray-300 mb-6 line-clamp-2"
         >
           {service.description}
@@ -76,7 +71,7 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
             opacity: isHovered ? 1 : 0, 
             height: isHovered ? 'auto' : 0 
           }}
-          transition={{ duration: 0.3 }}
+          transition={{ duration: 0.4, ease: smoothEase }}
           className="overflow-hidden"
         >
           <div className="flex flex-wrap gap-2 mb-6">
@@ -93,28 +88,14 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
 
         {/* CTA */}
         <motion.div
-          animate={{ y: isHovered ? 0 : 20, opacity: isHovered ? 1 : 0 }}
-          transition={{ duration: 0.3, delay: 0.15 }}
+          animate={{ y: isHovered ? 0 : 15, opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: smoothEase }}
         >
-          <button className="inline-flex items-center gap-2 text-[#2d5a8a] font-semibold group/btn">
+          <button className="inline-flex items-center gap-2 text-[#2d5a8a] font-semibold">
             View Details
-            <motion.span
-              animate={{ x: isHovered ? 5 : 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              →
-            </motion.span>
+            <span>→</span>
           </button>
         </motion.div>
-      </div>
-
-      {/* Corner Accent */}
-      <div className="absolute top-6 right-6">
-        <motion.div
-          animate={{ rotate: isHovered ? 90 : 0 }}
-          transition={{ duration: 0.5 }}
-          className="w-8 h-8 border-t-2 border-r-2 border-white/30 group-hover:border-[#2d5a8a] transition-colors duration-500"
-        />
       </div>
     </motion.div>
   );

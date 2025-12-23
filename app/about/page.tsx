@@ -77,7 +77,7 @@ export default function AboutPage() {
             className="text-xl text-gray-200 max-w-3xl mx-auto"
           >
             TACOS Technologies delivers mission-critical aerial intelligence and operational
-            solutions to support planning, monitoring, and decision-making across East Africa.
+            solutions to support planning, monitoring, and decision-making worldwide.
           </motion.p>
         </div>
       </section>

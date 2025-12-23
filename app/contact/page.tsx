@@ -165,7 +165,7 @@ export default function ContactPage() {
             {[
               {
                 q: 'What industries does TACOS Technologies serve?',
-                a: 'TACOS Technologies provides aerial intelligence solutions across multiple sectors, including agriculture, infrastructure & utilities, energy, construction, environmental monitoring, logistics, and security. Our systems and services are engineered to meet the operational needs of commercial enterprises, research organisations, and public-sector partners throughout Africa.',
+                a: 'TACOS Technologies provides aerial intelligence solutions across multiple sectors, including agriculture, infrastructure & utilities, energy, construction, environmental monitoring, logistics, and security. Our systems and services are engineered to meet the operational needs of commercial enterprises, research organisations, and public-sector partners.',
               },
               {
                 q: 'What aerial services do you specialize in?',
@@ -180,8 +180,8 @@ export default function ContactPage() {
                 a: 'Absolutely. We work closely with clients to develop custom integrations and workflows—from hardware selection and sensor packages to automated flight plans and bespoke data-processing pipelines. Whether you need a specialised inspection system, an automated mapping workflow, or an enterprise analytics dashboard, we design solutions that fit your operational requirements.',
               },
               {
-                q: 'What regions do you operate in?',
-                a: 'Our primary operations are centred in Kenya and East Africa, and we support projects across multiple African markets. We maintain regional partnerships and logistical capabilities to deploy teams and systems quickly across the continent for both short-term projects and long-term programs.',
+                q: 'Where do you operate?',
+                a: 'We support projects globally and maintain partnerships and logistical capabilities to deploy teams and systems quickly for both short-term projects and long-term programs.',
               },
             ].map((faq, index) => (
               <motion.div

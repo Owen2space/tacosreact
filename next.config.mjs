@@ -2,8 +2,8 @@
 const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
     remotePatterns: [
       {
@@ -27,18 +27,8 @@ const nextConfig = {
     optimizePackageImports: ['framer-motion', 'lucide-react'],
   },
 
-  // 🔧 Ignore ESLint during Cloudflare builds
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-
-  // 🔥 Fix Cloudflare Pages 25MB webpack cache issue
-  webpack: (config, { isServer }) => {
-    if (isServer) {
-      config.cache = false;
-    }
-    return config;
-  },
+  // Turbopack config (Next.js 16+)
+  turbopack: {},
 
   // Security headers
   async headers() {

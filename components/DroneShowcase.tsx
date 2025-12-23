@@ -4,6 +4,9 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
 import { useRef } from 'react';
 
+// Apple-style smooth easing
+const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const specs = [
   { 
     value: '45', 
@@ -38,25 +41,21 @@ export default function DroneShowcase() {
     offset: ['start end', 'end start'],
   });
 
-  const imageY = useTransform(scrollYProgress, [0, 1], [100, -100]);
-  const imageRotate = useTransform(scrollYProgress, [0, 1], [-5, 5]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [60, -60]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
     <section ref={containerRef} className="relative min-h-screen bg-white overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute inset-0 grid-pattern opacity-50" />
-      
-      {/* Radial Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#1e3a5f]/5 rounded-full blur-[150px]" />
+      <div className="absolute inset-0 grid-pattern opacity-30" />
 
       <div className="relative container-custom section-padding">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: smoothEase }}
+          viewport={{ once: true, margin: "-100px" }}
           className="text-center mb-20"
         >
           <span className="text-[#2d5a8a] text-sm font-semibold uppercase tracking-wider mb-4 block">
@@ -73,30 +72,21 @@ export default function DroneShowcase() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Drone Image */}
           <motion.div
-            style={{ y: imageY, rotate: imageRotate, opacity }}
-            className="relative"
+            style={{ y: imageY, opacity }}
+            className="relative gpu-accelerate"
           >
             <div className="relative aspect-square">
-              {/* Glow Ring */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-[80%] h-[80%] rounded-full border border-[#2d5a8a]/20 animate-pulse" />
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-[60%] h-[60%] rounded-full border border-[#2d5a8a]/30 animate-pulse" style={{ animationDelay: '0.5s' }} />
-              </div>
-              
               {/* Drone Image */}
               <div className="relative z-10 w-full h-full">
                 <Image
                   src="/assets/drone1.webp"
                   alt="TACOS UAV Platform"
                   fill
-                  className="object-contain drop-shadow-2xl"
+                  className="object-contain"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  loading="lazy"
                 />
               </div>
-
-              {/* Shadow */}
-              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-[60%] h-4 bg-black/10 rounded-full blur-xl" />
             </div>
           </motion.div>
 
@@ -105,14 +95,13 @@ export default function DroneShowcase() {
             {specs.map((spec, index) => (
               <motion.div
                 key={spec.label}
-                initial={{ opacity: 0, x: 50 }}
+                initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="group relative p-6 rounded-2xl bg-[#f8f9fa] border border-gray-200 hover:border-[#2d5a8a]/50 transition-all duration-500 hover:shadow-lg"
+                transition={{ duration: 0.6, delay: index * 0.1, ease: smoothEase }}
+                viewport={{ once: true, margin: "-50px" }}
+                className="group relative p-6 rounded-2xl bg-[#f8f9fa] border border-gray-200 hover:border-[#2d5a8a]/30 transition-all duration-300"
               >
                 <div className="flex items-start gap-4">
-                  {/* Content */}
                   <div className="flex-1">
                     <div className="flex items-baseline gap-1 mb-1">
                       <span className="text-4xl font-bold text-[#1a1a2e]">{spec.value}</span>
@@ -123,15 +112,6 @@ export default function DroneShowcase() {
                     </div>
                     <p className="text-gray-500 text-sm">{spec.description}</p>
                   </div>
-
-                  {/* Arrow */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -10 }}
-                    whileHover={{ opacity: 1, x: 0 }}
-                    className="text-[#2d5a8a] opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    →
-                  </motion.div>
                 </div>
               </motion.div>
             ))}
@@ -140,10 +120,10 @@ export default function DroneShowcase() {
 
         {/* Bottom Stats Bar */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: smoothEase }}
+          viewport={{ once: true, margin: "-50px" }}
           className="mt-20 p-8 rounded-3xl bg-[#1a1a2e] text-white"
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">

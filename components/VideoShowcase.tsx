@@ -2,7 +2,10 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
+
+// Apple-style smooth easing
+const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const capabilities = [
   {
@@ -25,28 +28,24 @@ const capabilities = [
 
 export default function VideoShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.8, 1]);
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1]);
   const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
 
   return (
     <section ref={containerRef} className="relative bg-[#f8f9fa] overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 dot-pattern opacity-50" />
-      
       <div className="container-custom section-padding">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: smoothEase }}
+          viewport={{ once: true, margin: "-100px" }}
           className="text-center mb-16"
         >
           <span className="text-[#2d5a8a] text-sm font-semibold uppercase tracking-wider mb-4 block">
@@ -63,30 +62,30 @@ export default function VideoShowcase() {
         {/* Video Container */}
         <motion.div
           style={{ scale, opacity }}
-          className="relative mb-20"
+          className="relative mb-20 gpu-accelerate"
         >
-          <div className="relative aspect-video rounded-3xl overflow-hidden group shadow-2xl">
-            {/* Video/Image */}
+          <div className="relative aspect-video rounded-3xl overflow-hidden group shadow-xl">
             <Image
               src="/assets/drone-flying-mountains.webp"
               alt="Aerial operations"
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              sizes="100vw"
+              loading="lazy"
             />
             
             {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e]/80 via-[#1a1a2e]/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e]/70 via-transparent to-transparent" />
             
             {/* Play Button */}
             <motion.button
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => setIsPlaying(!isPlaying)}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-[#1e3a5f] flex items-center justify-center shadow-2xl shadow-[#1e3a5f]/50 group/play"
+              transition={{ duration: 0.2, ease: smoothEase }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-[#1e3a5f] flex items-center justify-center"
             >
-              <div className="absolute inset-0 rounded-full bg-[#1e3a5f] animate-ping opacity-30" />
               <svg 
-                className="w-10 h-10 text-white ml-1" 
+                className="w-8 h-8 text-white ml-1" 
                 fill="currentColor" 
                 viewBox="0 0 24 24"
               >
@@ -98,25 +97,11 @@ export default function VideoShowcase() {
             <div className="absolute bottom-0 left-0 right-0 p-8">
               <div className="flex items-end justify-between">
                 <div>
-                  <h3 className="text-3xl font-bold text-white mb-2">Mission Overview</h3>
-                  <p className="text-gray-300">Agricultural survey operation — Kenya</p>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-white text-sm">
-                    4K Resolution
-                  </div>
-                  <div className="px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm text-white text-sm">
-                    2:34
-                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Mission Overview</h3>
+                  <p className="text-gray-300">Agricultural survey operation</p>
                 </div>
               </div>
             </div>
-
-            {/* Corner Decorations */}
-            <div className="absolute top-6 left-6 w-16 h-16 border-l-2 border-t-2 border-white/30" />
-            <div className="absolute top-6 right-6 w-16 h-16 border-r-2 border-t-2 border-white/30" />
-            <div className="absolute bottom-6 left-6 w-16 h-16 border-l-2 border-b-2 border-white/30" />
-            <div className="absolute bottom-6 right-6 w-16 h-16 border-r-2 border-b-2 border-white/30" />
           </div>
         </motion.div>
 
@@ -125,12 +110,11 @@ export default function VideoShowcase() {
           {capabilities.map((capability, index) => (
             <motion.div
               key={capability.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -5 }}
-              className="p-6 rounded-2xl bg-white border border-gray-200 hover:border-[#2d5a8a]/30 transition-all duration-300 group shadow-sm hover:shadow-lg"
+              transition={{ duration: 0.6, delay: index * 0.1, ease: smoothEase }}
+              viewport={{ once: true, margin: "-50px" }}
+              className="p-6 rounded-2xl bg-white border border-gray-200 hover:border-[#2d5a8a]/30 transition-all duration-300 card-hover"
             >
               <h3 className="text-lg font-semibold text-[#1a1a2e] mb-2">{capability.title}</h3>
               <p className="text-gray-500 text-sm">{capability.description}</p>
@@ -140,10 +124,10 @@ export default function VideoShowcase() {
 
         {/* Stats Row */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: smoothEase }}
+          viewport={{ once: true, margin: "-50px" }}
           className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8"
         >
           {[
@@ -154,9 +138,9 @@ export default function VideoShowcase() {
           ].map((stat, index) => (
             <motion.div
               key={stat.label}
-              initial={{ opacity: 0, scale: 0.5 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1, ease: smoothEase }}
               viewport={{ once: true }}
               className="text-center"
             >

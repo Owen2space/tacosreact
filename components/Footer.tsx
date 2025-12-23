@@ -62,7 +62,7 @@ export default function Footer() {
                 Tactical Aerospace Command & Operations Solutions
               </p>
               <p className="text-gray-400 mb-8 max-w-sm leading-relaxed">
-                Delivering mission-critical aerial intelligence and operational solutions across East Africa. Precision from above.
+                Delivering mission-critical aerial intelligence and operational solutions. Precision from above.
               </p>
               
               {/* Social Links */}
