@@ -84,8 +84,10 @@ export default function VideoShowcase() {
     for (let i = FRAME_START; i < FRAME_END; i += FRAME_STEP) {
       const img = new window.Image();
       const frameNumber = i.toString().padStart(3, '0');
-      // URL encode the path with spaces
-      img.src = `/assets/sqeantial%20files/A_cinematic_drone_202601252333_qtjih%20(1)_${frameNumber}.webp`;
+      // Use encodeURIComponent for proper URL encoding
+      const folderPath = encodeURIComponent('sqeantial files');
+      const fileName = encodeURIComponent(`A_cinematic_drone_202601252333_qtjih (1)_${frameNumber}.webp`);
+      img.src = `/assets/${folderPath}/${fileName}`;
       
       img.onload = () => {
         loadedCount++;
