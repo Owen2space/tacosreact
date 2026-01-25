@@ -1,8 +1,7 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import Image from 'next/image';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
 // Apple-style smooth easing
 const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -26,134 +25,272 @@ const capabilities = [
   },
 ];
 
+// Total number of frames - skip dark frames at start and end
+const FRAME_START = 10; // Skip first 10 dark frames
+const FRAME_END = 72; // Skip last 10 dark frames
+const FRAME_COUNT = FRAME_END - FRAME_START;
+
 export default function VideoShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [images, setImages] = useState<HTMLImageElement[]>([]);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [currentFrame, setCurrentFrame] = useState(0);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start end', 'end start'],
+    offset: ['start start', 'end end'],
   });
 
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.9, 1]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [0, 1]);
+  // Load only the good frames (skip dark ones)
+  useEffect(() => {
+    const loadedImages: HTMLImageElement[] = [];
+    let loadedCount = 0;
+
+    for (let i = FRAME_START; i < FRAME_END; i++) {
+      const img = new window.Image();
+      const frameNumber = i.toString().padStart(3, '0');
+      img.src = `/assets/sqeantial files/A_cinematic_drone_202601252333_qtjih_${frameNumber}.webp`;
+      
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === FRAME_COUNT) {
+          setImagesLoaded(true);
+        }
+      };
+      
+      loadedImages[i - FRAME_START] = img;
+    }
+    
+    setImages(loadedImages);
+  }, []);
+
+  // Update canvas based on scroll with smoother animation
+  useEffect(() => {
+    if (!imagesLoaded || !canvasRef.current || images.length === 0) return;
+
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+    if (!context) return;
+
+    const unsubscribe = scrollYProgress.on('change', (latest) => {
+      // Smooth easing function
+      const easedProgress = latest < 0.5 
+        ? 4 * latest * latest * latest
+        : 1 - Math.pow(-2 * latest + 2, 3) / 2;
+      
+      const frameIndex = Math.min(
+        Math.floor(easedProgress * FRAME_COUNT),
+        FRAME_COUNT - 1
+      );
+      
+      setCurrentFrame(frameIndex);
+      
+      const img = images[frameIndex];
+      if (img && img.complete) {
+        const container = canvas.parentElement;
+        if (container) {
+          const dpr = window.devicePixelRatio || 1;
+          canvas.width = container.clientWidth * dpr;
+          canvas.height = container.clientHeight * dpr;
+          canvas.style.width = `${container.clientWidth}px`;
+          canvas.style.height = `${container.clientHeight}px`;
+          
+          context.scale(dpr, dpr);
+          
+          // Calculate to fit within container (not fill)
+          const containerAspect = container.clientWidth / container.clientHeight;
+          const imageAspect = img.width / img.height;
+          
+          let drawWidth, drawHeight, offsetX, offsetY;
+          
+          if (containerAspect > imageAspect) {
+            // Container is wider - fit to height
+            drawHeight = container.clientHeight * 0.7; // 70% of container height
+            drawWidth = drawHeight * imageAspect;
+          } else {
+            // Container is taller - fit to width
+            drawWidth = container.clientWidth * 0.8; // 80% of container width
+            drawHeight = drawWidth / imageAspect;
+          }
+          
+          offsetX = (container.clientWidth - drawWidth) / 2;
+          offsetY = (container.clientHeight - drawHeight) / 2;
+          
+          context.clearRect(0, 0, container.clientWidth, container.clientHeight);
+          
+          // Crop bottom 12% to remove watermark
+          const cropHeight = img.height * 0.88;
+          
+          context.drawImage(
+            img,
+            0, 0, img.width, cropHeight,
+            offsetX, offsetY, drawWidth, drawHeight * 0.88
+          );
+        }
+      }
+    });
+
+    // Draw first frame initially
+    const firstImg = images[0];
+    if (firstImg && firstImg.complete) {
+      const container = canvas.parentElement;
+      if (container) {
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = container.clientWidth * dpr;
+        canvas.height = container.clientHeight * dpr;
+        canvas.style.width = `${container.clientWidth}px`;
+        canvas.style.height = `${container.clientHeight}px`;
+        
+        context.scale(dpr, dpr);
+        
+        const containerAspect = container.clientWidth / container.clientHeight;
+        const imageAspect = firstImg.width / firstImg.height;
+        
+        let drawWidth, drawHeight, offsetX, offsetY;
+        
+        if (containerAspect > imageAspect) {
+          drawHeight = container.clientHeight * 0.7;
+          drawWidth = drawHeight * imageAspect;
+        } else {
+          drawWidth = container.clientWidth * 0.8;
+          drawHeight = drawWidth / imageAspect;
+        }
+        
+        offsetX = (container.clientWidth - drawWidth) / 2;
+        offsetY = (container.clientHeight - drawHeight) / 2;
+        
+        const cropHeight = firstImg.height * 0.88;
+        context.drawImage(
+          firstImg,
+          0, 0, firstImg.width, cropHeight,
+          offsetX, offsetY, drawWidth, drawHeight * 0.88
+        );
+      }
+    }
+
+    return () => unsubscribe();
+  }, [scrollYProgress, images, imagesLoaded]);
+
+  const textOpacity = useTransform(scrollYProgress, [0, 0.1, 0.85, 1], [1, 1, 1, 0]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.85, 0.95, 1], [0, 0, 1, 1]);
 
   return (
-    <section ref={containerRef} className="relative bg-[#f8f9fa] overflow-hidden">
-      <div className="container-custom section-padding">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: smoothEase }}
-          viewport={{ once: true, margin: "-100px" }}
-          className="text-center mb-16"
-        >
-          <span className="text-[#2d5a8a] text-sm font-semibold uppercase tracking-wider mb-4 block">
-            Operational Capabilities
-          </span>
-          <h2 className="text-headline text-[#1a1a2e] mb-6">
-            Airborne Intelligence, <span className="gradient-text-primary">Delivered</span>
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Experience the precision of professional aerial operations
-          </p>
-        </motion.div>
-
-        {/* Video Container */}
-        <motion.div
-          style={{ scale, opacity }}
-          className="relative mb-20 gpu-accelerate"
-        >
-          <div className="relative aspect-video rounded-3xl overflow-hidden group shadow-xl">
-            <Image
-              src="/assets/drone-flying-mountains.webp"
-              alt="Aerial operations"
-              fill
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              sizes="100vw"
-              loading="lazy"
-            />
-            
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e]/70 via-transparent to-transparent" />
-            
-            {/* Play Button */}
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.2, ease: smoothEase }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-[#1e3a5f] flex items-center justify-center"
-            >
-              <svg 
-                className="w-8 h-8 text-white ml-1" 
-                fill="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </motion.button>
-
-            {/* Bottom Info */}
-            <div className="absolute bottom-0 left-0 right-0 p-8">
-              <div className="flex items-end justify-between">
-                <div>
-                  <h3 className="text-2xl font-bold text-white mb-2">Mission Overview</h3>
-                  <p className="text-gray-300">Agricultural survey operation</p>
+    <section ref={containerRef} className="relative bg-gradient-to-b from-[#0a0a0a] to-black" style={{ height: '400vh' }}>
+      {/* Sticky container for the animation */}
+      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+        <div className="relative w-full h-full">
+          <div className="absolute inset-0 flex items-center justify-center">
+            {!imagesLoaded && (
+              <div className="absolute inset-0 flex items-center justify-center z-10">
+                <div className="text-center">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-[#2d5a8a] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                  <p className="text-white text-xs sm:text-sm px-4">Loading transformation...</p>
                 </div>
               </div>
-            </div>
+            )}
+            
+            <canvas
+              ref={canvasRef}
+              className="w-full h-full"
+              style={{ opacity: imagesLoaded ? 1 : 0, transition: 'opacity 0.5s' }}
+            />
           </div>
-        </motion.div>
 
-        {/* Capabilities Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {capabilities.map((capability, index) => (
-            <motion.div
-              key={capability.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: smoothEase }}
-              viewport={{ once: true, margin: "-50px" }}
-              className="p-6 rounded-2xl bg-white border border-gray-200 hover:border-[#2d5a8a]/30 transition-all duration-300 card-hover"
-            >
-              <h3 className="text-lg font-semibold text-[#1a1a2e] mb-2">{capability.title}</h3>
-              <p className="text-gray-500 text-sm">{capability.description}</p>
-            </motion.div>
-          ))}
+          {/* Bottom Info - with proper z-index */}
+          <motion.div
+            style={{ opacity: textOpacity }}
+            className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-12 pointer-events-none z-20"
+          >
+            <div className="container-custom max-w-7xl mx-auto">
+              <div className="bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 sm:p-8 rounded-2xl backdrop-blur-sm">
+                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3">
+                  Mission-Ready Transformation
+                </h3>
+                <p className="text-gray-300 text-sm sm:text-base md:text-lg">
+                  Scroll to see the drone transition into operational mode
+                </p>
+              </div>
+            </div>
+          </motion.div>
         </div>
-
-        {/* Stats Row */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: smoothEase }}
-          viewport={{ once: true, margin: "-50px" }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8"
-        >
-          {[
-            { value: '500+', label: 'Hectares Surveyed' },
-            { value: '200+', label: 'Flight Hours' },
-            { value: '98%', label: 'Mission Success' },
-            { value: '24/7', label: 'Support' },
-          ].map((stat, index) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: smoothEase }}
-              viewport={{ once: true }}
-              className="text-center"
-            >
-              <div className="text-4xl md:text-5xl font-bold gradient-text-primary mb-2">
-                {stat.value}
-              </div>
-              <div className="text-gray-500 text-sm uppercase tracking-wider">
-                {stat.label}
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
       </div>
+
+      {/* Content after animation - with proper spacing and fade in */}
+      <motion.div 
+        style={{ opacity: contentOpacity }}
+        className="relative bg-[#f8f9fa]"
+      >
+        <div className="container-custom max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 md:py-24">
+          {/* Section Header */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: smoothEase }}
+            viewport={{ once: true, margin: "-100px" }}
+            className="text-center mb-12 sm:mb-16"
+          >
+            <span className="text-[#2d5a8a] text-xs sm:text-sm font-semibold uppercase tracking-wider mb-3 sm:mb-4 block">
+              Operational Capabilities
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#1a1a2e] mb-4 sm:mb-6">
+              Airborne Intelligence, <span className="gradient-text-primary">Delivered</span>
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+              Experience the precision of professional aerial operations
+            </p>
+          </motion.div>
+
+          {/* Capabilities Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-16 sm:mb-20">
+            {capabilities.map((capability, index) => (
+              <motion.div
+                key={capability.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: smoothEase }}
+                viewport={{ once: true, margin: "-50px" }}
+                className="p-5 sm:p-6 rounded-2xl bg-white border border-gray-200 hover:border-[#2d5a8a]/30 transition-all duration-300 card-hover"
+              >
+                <h3 className="text-base sm:text-lg font-semibold text-[#1a1a2e] mb-2">{capability.title}</h3>
+                <p className="text-gray-500 text-sm">{capability.description}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Stats Row */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: smoothEase }}
+            viewport={{ once: true, margin: "-50px" }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8"
+          >
+            {[
+              { value: '500+', label: 'Hectares Surveyed' },
+              { value: '200+', label: 'Flight Hours' },
+              { value: '98%', label: 'Mission Success' },
+              { value: '24/7', label: 'Support' },
+            ].map((stat, index) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: smoothEase }}
+                viewport={{ once: true }}
+                className="text-center"
+              >
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold gradient-text-primary mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-gray-500 text-xs sm:text-sm uppercase tracking-wider">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </motion.div>
     </section>
   );
 }
