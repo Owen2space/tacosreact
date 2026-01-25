@@ -66,6 +66,7 @@ export default function VideoShowcase() {
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
+  const [loadingError, setLoadingError] = useState(false);
   const [currentFrame, setCurrentFrame] = useState(0);
   const [currentContent, setCurrentContent] = useState(frameContent[0]);
   
@@ -78,11 +79,13 @@ export default function VideoShowcase() {
   useEffect(() => {
     const loadedImages: HTMLImageElement[] = [];
     let loadedCount = 0;
+    let errorCount = 0;
 
     for (let i = FRAME_START; i < FRAME_END; i += FRAME_STEP) {
       const img = new window.Image();
       const frameNumber = i.toString().padStart(3, '0');
-      img.src = `/assets/sqeantial files/A_cinematic_drone_202601252333_qtjih (1)_${frameNumber}.webp`;
+      // URL encode the path with spaces
+      img.src = `/assets/sqeantial%20files/A_cinematic_drone_202601252333_qtjih%20(1)_${frameNumber}.webp`;
       
       img.onload = () => {
         loadedCount++;
@@ -93,8 +96,15 @@ export default function VideoShowcase() {
       };
       
       img.onerror = () => {
+        errorCount++;
         loadedCount++;
         setLoadingProgress(Math.round((loadedCount / FRAME_COUNT) * 100));
+        
+        // If too many errors, mark as failed
+        if (errorCount > FRAME_COUNT * 0.5) {
+          setLoadingError(true);
+        }
+        
         if (loadedCount === FRAME_COUNT) {
           setImagesLoaded(true);
         }
@@ -252,7 +262,7 @@ export default function VideoShowcase() {
         {/* Animation container */}
         <div className="relative flex-1 flex items-center justify-center bg-black">
           <div className="absolute inset-0 flex items-center justify-center">
-            {!imagesLoaded && (
+            {!imagesLoaded && !loadingError && (
               <div className="absolute inset-0 flex items-center justify-center z-10 bg-black">
                 <div className="text-center">
                   <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-[#2d5a8a] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
@@ -267,11 +277,25 @@ export default function VideoShowcase() {
                 </div>
               </div>
             )}
+
+            {loadingError && (
+              <div className="absolute inset-0 flex items-center justify-center z-10 bg-black">
+                <div className="text-center px-4">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-500/10 border-2 border-red-500/20 flex items-center justify-center">
+                    <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                  </div>
+                  <p className="text-white text-sm mb-2">Unable to load animation</p>
+                  <p className="text-gray-400 text-xs">Scroll down to continue</p>
+                </div>
+              </div>
+            )}
             
             <canvas
               ref={canvasRef}
               className="w-full h-full"
-              style={{ opacity: imagesLoaded ? 1 : 0, transition: 'opacity 0.5s' }}
+              style={{ opacity: imagesLoaded && !loadingError ? 1 : 0, transition: 'opacity 0.5s' }}
             />
           </div>
 
