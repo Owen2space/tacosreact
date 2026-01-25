@@ -80,7 +80,7 @@ export default function VideoShowcase() {
     for (let i = FRAME_START; i < FRAME_END; i++) {
       const img = new window.Image();
       const frameNumber = i.toString().padStart(3, '0');
-      img.src = `/assets/sqeantial files/A_cinematic_drone_202601252333_qtjih_${frameNumber}.webp`;
+      img.src = `/assets/sqeantial files/A_cinematic_drone_202601252333_qtjih (1)_${frameNumber}.webp`;
       
       img.onload = () => {
         loadedCount++;
@@ -156,13 +156,11 @@ export default function VideoShowcase() {
           
           context.clearRect(0, 0, container.clientWidth, container.clientHeight);
           
-          // Crop bottom 8% to hide watermark while preserving drone
-          const cropHeight = img.height * 0.92;
-          
+          // No cropping - show full image without watermark
           context.drawImage(
             img,
-            0, 0, img.width, cropHeight,
-            offsetX, offsetY, drawWidth, drawHeight * 0.92
+            0, 0, img.width, img.height,
+            offsetX, offsetY, drawWidth, drawHeight
           );
         }
       }
@@ -197,11 +195,11 @@ export default function VideoShowcase() {
         offsetX = (container.clientWidth - drawWidth) / 2;
         offsetY = (container.clientHeight - drawHeight) / 2;
         
-        const cropHeight = firstImg.height * 0.92;
+        // No cropping - show full image
         context.drawImage(
           firstImg,
-          0, 0, firstImg.width, cropHeight,
-          offsetX, offsetY, drawWidth, drawHeight * 0.92
+          0, 0, firstImg.width, firstImg.height,
+          offsetX, offsetY, drawWidth, drawHeight
         );
       }
     }
@@ -258,30 +256,30 @@ export default function VideoShowcase() {
             />
           </div>
 
-          {/* Bottom Info - with proper z-index and dynamic content */}
+          {/* Left Side Text - NO blur effect, positioned away from drone */}
           <motion.div
             style={{ opacity: textOpacity }}
-            className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-12 pointer-events-none z-20"
+            className="absolute left-4 sm:left-8 md:left-12 bottom-12 sm:bottom-16 md:bottom-20 pointer-events-none z-20"
           >
-            <div className="container-custom max-w-7xl mx-auto">
-              <div className="bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 sm:p-8 rounded-2xl backdrop-blur-sm">
+            <div className="max-w-xs sm:max-w-sm md:max-w-md">
+              <div className="bg-black/70 p-4 sm:p-5 md:p-6 rounded-xl border border-white/20">
                 <motion.h3
                   key={currentContent.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
                   transition={{ duration: 0.5 }}
-                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3"
+                  className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-2"
                 >
                   {currentContent.title}
                 </motion.h3>
                 <motion.p
                   key={currentContent.subtitle}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 10 }}
                   transition={{ duration: 0.5, delay: 0.1 }}
-                  className="text-gray-300 text-sm sm:text-base md:text-lg"
+                  className="text-gray-300 text-xs sm:text-sm"
                 >
                   {currentContent.subtitle}
                 </motion.p>
