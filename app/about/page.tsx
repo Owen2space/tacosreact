@@ -119,7 +119,7 @@ export default function AboutPage() {
               </span>
               <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a2e] mb-6">Engineering Excellence</h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                At TACOS Technologies, we're more than just drone operators. We're AI engineers, 
+                At TACOS Technologies, we&apos;re more than just drone operators. We&apos;re AI engineers, 
                 software developers, mechanical designers, and technical consultants. Whether you need 
                 intelligent autonomous systems, quality drone components, a custom-built UAV, expert 
                 technical guidance, or precision mechanical engineering, we deliver cutting-edge 

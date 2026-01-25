@@ -24,7 +24,6 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   reactStrictMode: true,
-  swcMinify: true,
 
   // Enable experimental features for better performance
   experimental: {

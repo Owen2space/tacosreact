@@ -22,8 +22,8 @@ export default function NotFound() {
           Mission Not Found
         </h2>
         <p className="text-lg sm:text-xl text-gray-400 mb-8 max-w-lg mx-auto">
-          The coordinates you entered don't match any known location in our system. 
-          Let's get you back on course.
+          The coordinates you entered don&apos;t match any known location in our system. 
+          Let&apos;s get you back on course.
         </p>
 
         {/* Navigation Buttons */}
