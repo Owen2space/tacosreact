@@ -10,6 +10,7 @@ const inter = Inter({
   display: 'swap',
   variable: '--font-inter',
   preload: true,
+  adjustFontFallback: true,
 });
 
 export const metadata: Metadata = defaultMetadata;
@@ -18,6 +19,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 5,
+  userScalable: true,
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#1e3a5f' },
     { media: '(prefers-color-scheme: dark)', color: '#1e3a5f' },
@@ -39,13 +41,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="apple-touch-icon" href="/assets/tacoslogo1.png" />
         <link rel="manifest" href="/manifest.json" />
 
-        {/* Preconnect to external resources */}
+        {/* Preconnect to external resources for faster loading */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
 
-        {/* DNS Prefetch */}
+        {/* DNS Prefetch for analytics and external services */}
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        
+        {/* Preload critical assets */}
+        <link rel="preload" href="/assets/tacoslogo1.png" as="image" />
 
         {/* Structured Data - Organization */}
         <script
