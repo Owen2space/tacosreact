@@ -30,12 +30,42 @@ const FRAME_START = 10; // Skip first 10 dark frames
 const FRAME_END = 72; // Skip last 10 dark frames
 const FRAME_COUNT = FRAME_END - FRAME_START;
 
+// Dynamic text content based on frame progress
+const frameContent = [
+  {
+    range: [0, 0.2],
+    title: 'AI-Powered Intelligence',
+    subtitle: 'Advanced computer vision and autonomous systems',
+  },
+  {
+    range: [0.2, 0.4],
+    title: 'Precision Navigation',
+    subtitle: 'GPS-guided flight with centimeter-level accuracy',
+  },
+  {
+    range: [0.4, 0.6],
+    title: 'Real-Time Data Feed',
+    subtitle: 'Live HD streaming with minimal latency',
+  },
+  {
+    range: [0.6, 0.8],
+    title: 'Thermal Imaging',
+    subtitle: 'Advanced sensors for night operations',
+  },
+  {
+    range: [0.8, 1],
+    title: 'Mission-Ready',
+    subtitle: 'Fully operational and ready for deployment',
+  },
+];
+
 export default function VideoShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [currentFrame, setCurrentFrame] = useState(0);
+  const [currentContent, setCurrentContent] = useState(frameContent[0]);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -86,6 +116,13 @@ export default function VideoShowcase() {
       
       setCurrentFrame(frameIndex);
       
+      // Update content based on progress
+      const content = frameContent.find(
+        (item) => easedProgress >= item.range[0] && easedProgress < item.range[1]
+      ) || frameContent[frameContent.length - 1];
+      
+      setCurrentContent(content);
+      
       const img = images[frameIndex];
       if (img && img.complete) {
         const container = canvas.parentElement;
@@ -119,13 +156,13 @@ export default function VideoShowcase() {
           
           context.clearRect(0, 0, container.clientWidth, container.clientHeight);
           
-          // Crop bottom 12% to remove watermark
-          const cropHeight = img.height * 0.88;
+          // Crop bottom 8% to hide watermark while preserving drone
+          const cropHeight = img.height * 0.92;
           
           context.drawImage(
             img,
             0, 0, img.width, cropHeight,
-            offsetX, offsetY, drawWidth, drawHeight * 0.88
+            offsetX, offsetY, drawWidth, drawHeight * 0.92
           );
         }
       }
@@ -160,11 +197,11 @@ export default function VideoShowcase() {
         offsetX = (container.clientWidth - drawWidth) / 2;
         offsetY = (container.clientHeight - drawHeight) / 2;
         
-        const cropHeight = firstImg.height * 0.88;
+        const cropHeight = firstImg.height * 0.92;
         context.drawImage(
           firstImg,
           0, 0, firstImg.width, cropHeight,
-          offsetX, offsetY, drawWidth, drawHeight * 0.88
+          offsetX, offsetY, drawWidth, drawHeight * 0.92
         );
       }
     }
@@ -178,8 +215,32 @@ export default function VideoShowcase() {
   return (
     <section ref={containerRef} className="relative bg-gradient-to-b from-[#0a0a0a] to-black" style={{ height: '400vh' }}>
       {/* Sticky container for the animation */}
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
-        <div className="relative w-full h-full">
+      <div className="sticky top-0 h-screen flex flex-col overflow-hidden">
+        {/* Top capability cards - fade in/out based on scroll */}
+        <motion.div
+          style={{ opacity: textOpacity }}
+          className="relative z-20 pt-20 sm:pt-24 pb-4 sm:pb-6 bg-gradient-to-b from-black/80 to-transparent"
+        >
+          <div className="container-custom max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+              {capabilities.map((capability, index) => (
+                <motion.div
+                  key={capability.title}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  className="p-3 sm:p-4 rounded-xl bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 transition-all"
+                >
+                  <h3 className="text-xs sm:text-sm font-semibold text-white mb-1">{capability.title}</h3>
+                  <p className="text-[10px] sm:text-xs text-gray-400 line-clamp-2">{capability.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Animation container */}
+        <div className="relative flex-1 flex items-center justify-center">
           <div className="absolute inset-0 flex items-center justify-center">
             {!imagesLoaded && (
               <div className="absolute inset-0 flex items-center justify-center z-10">
@@ -197,19 +258,33 @@ export default function VideoShowcase() {
             />
           </div>
 
-          {/* Bottom Info - with proper z-index */}
+          {/* Bottom Info - with proper z-index and dynamic content */}
           <motion.div
             style={{ opacity: textOpacity }}
             className="absolute bottom-0 left-0 right-0 p-6 sm:p-8 md:p-12 pointer-events-none z-20"
           >
             <div className="container-custom max-w-7xl mx-auto">
               <div className="bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6 sm:p-8 rounded-2xl backdrop-blur-sm">
-                <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3">
-                  Mission-Ready Transformation
-                </h3>
-                <p className="text-gray-300 text-sm sm:text-base md:text-lg">
-                  Scroll to see the drone transition into operational mode
-                </p>
+                <motion.h3
+                  key={currentContent.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5 }}
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 sm:mb-3"
+                >
+                  {currentContent.title}
+                </motion.h3>
+                <motion.p
+                  key={currentContent.subtitle}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                  className="text-gray-300 text-sm sm:text-base md:text-lg"
+                >
+                  {currentContent.subtitle}
+                </motion.p>
               </div>
             </div>
           </motion.div>
