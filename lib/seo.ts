@@ -9,8 +9,17 @@ export const defaultMetadata: Metadata = {
     template: '%s | TACOS Technologies',
   },
   description:
-    'TACOS Technologies delivers mission-critical aerial intelligence and drone services in Kenya, Africa, and worldwide. Specializing in precision agriculture, infrastructure inspection, security surveillance, aerial surveying, and emergency response. Professional UAV operators serving Nairobi, East Africa, and global markets.',
+    'TACOS Technologies delivers AI-powered drone solutions, UAV parts, mechanical engineering, and technical consultation in Kenya, Africa, and worldwide. Specializing in autonomous systems, precision agriculture, infrastructure inspection, and aerial surveying. Professional UAV operators serving Nairobi, East Africa, and global markets.',
   keywords: [
+    // AI & Technology keywords
+    'AI drone systems',
+    'machine learning UAV',
+    'autonomous drone systems',
+    'computer vision drones',
+    'AI-powered aerial solutions',
+    'intelligent drone systems Kenya',
+    'autonomous navigation systems',
+    'predictive analytics drones',
     // Regional keywords - Africa
     'drone services Kenya',
     'drone services Africa',
@@ -27,6 +36,22 @@ export const defaultMetadata: Metadata = {
     'drone services Tanzania',
     'drone services Rwanda',
     'aerial surveying East Africa',
+    // Parts & Engineering keywords
+    'drone parts Kenya',
+    'UAV components Africa',
+    'drone assembly services',
+    'custom drone builds Kenya',
+    'mechanical engineering drones',
+    'CAD design aerospace',
+    'drone prototyping Kenya',
+    'flight controller Kenya',
+    'drone motors ESC Kenya',
+    // Consultation keywords
+    'drone consultation Kenya',
+    'UAV technical consultation',
+    'drone system design',
+    'aerial operations planning',
+    'drone compliance advisory',
     // Industry-specific regional
     'precision agriculture drones Kenya',
     'agricultural drone services Africa',
@@ -64,9 +89,9 @@ export const defaultMetadata: Metadata = {
     locale: 'en_US',
     url: siteUrl,
     siteName: 'TACOS Technologies',
-    title: 'TACOS Technologies | Drone Services Kenya & Africa | Aerial Solutions',
+    title: 'TACOS Technologies | AI-Powered Drone Solutions, Parts & Engineering | Kenya & Africa',
     description:
-      'Leading drone services provider in Kenya and Africa. Precision agriculture, infrastructure inspection, aerial surveying, security surveillance. Professional UAV operators serving East Africa and worldwide.',
+      'Leading AI-powered drone solutions provider in Kenya and Africa. Offering UAV parts, custom builds, mechanical engineering, technical consultation, and aerial services. Professional operators serving East Africa and worldwide.',
     images: [
       {
         url: `${siteUrl}/assets/drone-flying-mountains.webp`,
@@ -79,11 +104,11 @@ export const defaultMetadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@tacostechnology',
-    creator: '@tacostechnology',
-    title: 'TACOS Technologies | Drone Services Kenya & Africa',
+    site: '@_Tacostech',
+    creator: '@_Tacostech',
+    title: 'TACOS Technologies | AI Drones, Parts & Engineering | Kenya & Africa',
     description:
-      'Professional drone services in Kenya and Africa. Aerial intelligence, precision agriculture, infrastructure inspection. Serving East Africa and worldwide.',
+      'AI-powered drone solutions, UAV parts, mechanical engineering, and technical consultation in Kenya and Africa. Custom builds, autonomous systems, and aerial services. Serving East Africa and worldwide.',
     images: [`${siteUrl}/assets/drone-flying-mountains.webp`],
   },
   robots: {
@@ -122,24 +147,24 @@ export const defaultMetadata: Metadata = {
 
 export const pageMetadata = {
   home: {
-    title: 'TACOS Technologies | Drone Services Kenya & Africa | Aerial Data Solutions',
+    title: 'TACOS Technologies | AI Drones, Parts, Engineering & Consultation | Kenya & Africa',
     description:
-      'Leading drone services provider in Kenya and Africa. Professional UAV operators for precision agriculture, infrastructure inspection, aerial surveying, security surveillance. Serving Nairobi, East Africa, and worldwide.',
+      'Leading provider of AI-powered drone solutions, UAV parts, mechanical engineering, and technical consultation in Kenya and Africa. Custom builds, autonomous systems, precision agriculture, infrastructure inspection. Serving Nairobi, East Africa, and worldwide.',
   },
   about: {
-    title: 'About TACOS Technologies | Drone Company Kenya | Aerial Solutions Africa',
+    title: 'About TACOS Technologies | AI Drones, Parts & Engineering Company | Kenya & Africa',
     description:
-      'TACOS Technologies - Kenya\'s professional drone services company. Advanced aerial data and operational solutions for agriculture, infrastructure, security. Serving East Africa and global markets.',
+      'TACOS Technologies - Kenya\'s leading AI-powered drone solutions company. Offering UAV parts, custom builds, mechanical engineering, technical consultation, and aerial services for agriculture, infrastructure, and security. Serving East Africa and global markets.',
   },
   contact: {
-    title: 'Contact TACOS Technologies | Drone Services Kenya | Get a Quote',
+    title: 'Contact TACOS Technologies | AI Drones, Parts & Engineering | Kenya | Get a Quote',
     description:
-      'Contact TACOS Technologies for professional drone services in Kenya and Africa. Request a consultation for precision agriculture, infrastructure inspection, aerial surveying, or security solutions.',
+      'Contact TACOS Technologies for AI-powered drone solutions, UAV parts, mechanical engineering, and technical consultation in Kenya and Africa. Request a quote for custom builds, autonomous systems, precision agriculture, or infrastructure inspection.',
   },
   services: {
-    title: 'Drone Services Kenya & Africa | Aerial Surveying, Agriculture, Inspection',
+    title: 'AI Drone Solutions, Parts & Engineering | Kenya & Africa | TACOS Technologies',
     description:
-      'Professional drone services in Kenya and Africa: precision agriculture, infrastructure inspection, aerial surveying, security surveillance, emergency response. Expert UAV operators serving East Africa.',
+      'Comprehensive drone solutions in Kenya and Africa: AI/ML systems, UAV parts supply, custom builds, mechanical engineering, technical consultation, precision agriculture, infrastructure inspection, aerial surveying. Expert operators serving East Africa.',
   },
 };
 
@@ -176,7 +201,7 @@ export function generateStructuredData(
         contactPoint: [
           {
             '@type': 'ContactPoint',
-            telephone: '+254-740-161-366',
+            telephone: '+254-796-803-774',
             contactType: 'customer service',
             email: 'info@tacostechnologies.com',
             availableLanguage: ['English', 'Swahili'],
@@ -184,17 +209,29 @@ export function generateStructuredData(
           },
           {
             '@type': 'ContactPoint',
-            telephone: '+254-740-161-366',
+            telephone: '+254-796-803-774',
             contactType: 'sales',
-            email: 'info@tacostechnologies.com',
+            email: 'tacostechnologies@gmail.com',
             availableLanguage: ['English'],
             areaServed: 'Worldwide',
           },
         ],
-        sameAs: ['https://www.instagram.com/tacostechnology/'],
+        sameAs: [
+          'https://www.instagram.com/tacostechnology/',
+          'https://www.tiktok.com/@tacostechnology',
+          'https://x.com/_Tacostech',
+        ],
         slogan: 'Command the Sky. Precision from Above.',
         knowsAbout: [
+          'Artificial Intelligence',
+          'Machine Learning',
+          'Computer Vision',
+          'Autonomous Systems',
           'Drone Technology',
+          'UAV Parts & Components',
+          'Mechanical Engineering',
+          'CAD Design',
+          'Technical Consultation',
           'Aerial Surveying',
           'Precision Agriculture',
           'Infrastructure Inspection',
@@ -210,7 +247,7 @@ export function generateStructuredData(
         name: 'TACOS Technologies',
         image: `${siteUrl}/assets/tacoslogo1.png`,
         url: siteUrl,
-        telephone: '+254-740-161-366',
+        telephone: '+254-796-803-774',
         email: 'info@tacostechnologies.com',
         address: {
           '@type': 'PostalAddress',
@@ -352,10 +389,42 @@ export function generateStructuredData(
         mainEntity: [
           {
             '@type': 'Question',
+            name: 'What AI and machine learning services does TACOS Technologies offer?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'TACOS Technologies provides cutting-edge AI/ML solutions including computer vision for object detection and tracking, autonomous navigation systems, predictive maintenance analytics, and intelligent data processing for UAV applications in Kenya and Africa.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Do you sell drone parts and components in Kenya?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes, we supply a comprehensive range of UAV parts and components including motors, ESCs, flight controllers, frames, propellers, and accessories from leading manufacturers. We serve customers throughout Kenya and East Africa.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Can you build custom drones in Kenya?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Absolutely! TACOS Technologies specializes in custom UAV builds tailored to your specific requirements. From agricultural drones to inspection platforms, we design and assemble complete systems with AI-powered capabilities.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'What mechanical engineering services do you provide?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'We offer precision mechanical engineering services including CAD design, prototyping, and fabrication for aerospace components and custom drone solutions. Our team handles everything from concept to production.',
+            },
+          },
+          {
+            '@type': 'Question',
             name: 'What industries does TACOS Technologies serve in Kenya and Africa?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'TACOS Technologies provides professional drone services across multiple sectors in Kenya, East Africa, and worldwide, including agriculture, infrastructure & utilities, energy, construction, environmental monitoring, logistics, and security.',
+              text: 'TACOS Technologies provides AI-powered drone solutions, parts, and engineering services across multiple sectors in Kenya, East Africa, and worldwide, including agriculture, infrastructure & utilities, energy, construction, environmental monitoring, logistics, and security.',
             },
           },
           {
@@ -363,7 +432,7 @@ export function generateStructuredData(
             name: 'What drone services do you offer in Kenya?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'We specialize in geospatial mapping & surveying, multispectral crop analysis, asset and infrastructure inspections, high-resolution imaging & videography, 3D modelling, and rapid-response aerial support throughout Kenya and Africa.',
+              text: 'We specialize in AI-powered autonomous systems, geospatial mapping & surveying, multispectral crop analysis, asset and infrastructure inspections, high-resolution imaging & videography, 3D modelling, and rapid-response aerial support throughout Kenya and Africa.',
             },
           },
           {
@@ -371,15 +440,23 @@ export function generateStructuredData(
             name: 'Where do you provide drone services in Africa?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Our headquarters is in Nairobi, Kenya, and we provide drone services throughout East Africa including Uganda, Tanzania, Rwanda, and Ethiopia. We also support projects across the African continent and worldwide.',
+              text: 'Our headquarters is in Nairobi, Kenya, and we provide AI-powered drone solutions, parts supply, engineering services, and consultation throughout East Africa including Uganda, Tanzania, Rwanda, and Ethiopia. We also support projects across the African continent and worldwide.',
             },
           },
           {
             '@type': 'Question',
-            name: 'How can I hire drone services in Nairobi, Kenya?',
+            name: 'How can I hire drone services or buy parts in Nairobi, Kenya?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Contact TACOS Technologies at +254 740 161 366 or info@tacostechnologies.com to request a consultation. We offer professional drone services for agriculture, infrastructure inspection, surveying, and security in Nairobi and throughout Kenya.',
+              text: 'Contact TACOS Technologies at +254 796 803 774 or info@tacostechnologies.com / tacostechnologies@gmail.com to request a consultation. We offer AI-powered drone solutions, UAV parts, custom builds, mechanical engineering, and technical consultation for agriculture, infrastructure inspection, surveying, and security in Nairobi and throughout Kenya.',
+            },
+          },
+          {
+            '@type': 'Question',
+            name: 'Do you provide technical consultation for drone projects?',
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: 'Yes, we offer expert technical consultation on UAV selection, system design, operational planning, regulatory compliance, and AI integration. Our team helps you choose the right solutions for your specific needs in Kenya and Africa.',
             },
           },
         ],

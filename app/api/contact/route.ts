@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
       },
       body: JSON.stringify({
         from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
-        to: ['info@tacostechnologies.com'],
+        to: ['tacostechnologies@gmail.com', 'info@tacostechnologies.com'],
         reply_to: email,
         subject: `New Contact Form Submission - ${service}`,
         html: htmlContent,

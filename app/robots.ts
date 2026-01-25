@@ -9,28 +9,49 @@ export default function robots(): MetadataRoute.Robots {
         userAgent: '*',
         allow: '/',
         disallow: ['/api/', '/admin/', '/_next/', '/private/', '/*.json$'],
+        crawlDelay: 0,
       },
       {
         userAgent: 'Googlebot',
         allow: '/',
         disallow: ['/api/', '/admin/'],
+        crawlDelay: 0,
       },
       {
         userAgent: 'Googlebot-Image',
-        allow: '/assets/',
+        allow: '/',
+        disallow: [],
+      },
+      {
+        userAgent: 'Googlebot-Video',
+        allow: '/',
+        disallow: [],
       },
       {
         userAgent: 'Bingbot',
         allow: '/',
         disallow: ['/api/', '/admin/'],
+        crawlDelay: 0,
       },
       {
         userAgent: 'Slurp',
         allow: '/',
+        crawlDelay: 0,
       },
       {
         userAgent: 'DuckDuckBot',
         allow: '/',
+        crawlDelay: 0,
+      },
+      {
+        userAgent: 'Baiduspider',
+        allow: '/',
+        crawlDelay: 1,
+      },
+      {
+        userAgent: 'YandexBot',
+        allow: '/',
+        crawlDelay: 1,
       },
       {
         userAgent: 'facebookexternalhit',
@@ -42,6 +63,14 @@ export default function robots(): MetadataRoute.Robots {
       },
       {
         userAgent: 'LinkedInBot',
+        allow: '/',
+      },
+      {
+        userAgent: 'WhatsApp',
+        allow: '/',
+      },
+      {
+        userAgent: 'TelegramBot',
         allow: '/',
       },
     ],

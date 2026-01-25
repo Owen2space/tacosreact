@@ -11,11 +11,11 @@ const contactInfo = [
   },
   {
     title: 'Email',
-    details: ['info@tacostechnologies.com'],
+    details: ['info@tacostechnologies.com', 'tacostechnologies@gmail.com'],
   },
   {
     title: 'Phone',
-    details: ['+254 740 161 366'],
+    details: ['+254 796 803 774'],
   },
   {
     title: 'Operating Hours',
@@ -134,10 +134,10 @@ export default function ContactPage() {
                   24/7 operations line.
                 </p>
                 <a
-                  href="tel:+254740161366"
+                  href="tel:+254796803774"
                   className="inline-flex items-center gap-2 text-white font-semibold hover:text-gray-200 transition-colors"
                 >
-                  +254 740 161 366
+                  +254 796 803 774
                 </a>
               </motion.div>
             </motion.div>

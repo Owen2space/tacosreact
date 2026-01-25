@@ -13,24 +13,24 @@ const stats = [
 
 const values = [
   {
+    title: 'Innovation',
+    description:
+      'Leveraging cutting-edge AI and machine learning to create intelligent, autonomous systems that push the boundaries of what\'s possible.',
+  },
+  {
     title: 'Precision',
     description:
-      'Delivering accurate geospatial intelligence through rigorous operational standards and advanced sensor systems.',
+      'Delivering accurate solutions through rigorous engineering standards, advanced algorithms, and meticulous attention to detail.',
   },
   {
     title: 'Reliability',
     description:
-      'Consistent, mission-critical service delivery with redundant systems and comprehensive safety protocols.',
-  },
-  {
-    title: 'Expertise',
-    description:
-      'Deep technical knowledge combined with operational excellence in aerial systems and data analytics.',
+      'Consistent, mission-critical service delivery with robust systems, comprehensive testing, and proven methodologies.',
   },
   {
     title: 'Partnership',
     description:
-      'Working closely with clients to understand operational requirements and deliver tailored solutions.',
+      'Working closely with clients to understand requirements and deliver tailored AI-powered solutions that exceed expectations.',
   },
 ];
 
@@ -76,8 +76,8 @@ export default function AboutPage() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-xl text-gray-200 max-w-3xl mx-auto"
           >
-            TACOS Technologies delivers mission-critical aerial intelligence and operational
-            solutions to support planning, monitoring, and decision-making worldwide.
+            TACOS Technologies provides comprehensive solutions including AI/ML systems, UAV parts supply, 
+            custom builds, technical consultation, and mechanical engineering services.
           </motion.p>
         </div>
       </section>
@@ -117,17 +117,18 @@ export default function AboutPage() {
               <span className="text-[#2d5a8a] text-sm font-semibold uppercase tracking-wider mb-4 block">
                 Our Mission
               </span>
-              <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a2e] mb-6">Precision from Above</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a2e] mb-6">Engineering Excellence</h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                At TACOS Technologies, we deliver accurate geospatial intelligence to support
-                planning, monitoring, and operational decision-making. Our mission is to provide
-                advanced aerial data and operational solutions that enable organizations to operate
-                with greater efficiency and insight.
+                At TACOS Technologies, we're more than just drone operators. We're AI engineers, 
+                software developers, mechanical designers, and technical consultants. Whether you need 
+                intelligent autonomous systems, quality drone components, a custom-built UAV, expert 
+                technical guidance, or precision mechanical engineering, we deliver cutting-edge 
+                solutions tailored to your needs.
               </p>
               <p className="text-gray-500 leading-relaxed">
-                From precision agriculture that optimizes resource allocation, to infrastructure
-                assessments that ensure asset integrity, we deliver actionable intelligence that
-                drives operational outcomes.
+                From developing AI-powered computer vision systems and autonomous navigation algorithms, 
+                to sourcing the right parts for your build, to designing custom mechanical components - 
+                we bring technical expertise, innovation, and practical experience to every project.
               </p>
             </motion.div>
 
@@ -171,31 +172,41 @@ export default function AboutPage() {
               className="order-1 lg:order-2"
             >
               <span className="text-[#2d5a8a] text-sm font-semibold uppercase tracking-wider mb-4 block">
-                Platform Capabilities
+                Our Capabilities
               </span>
-              <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a2e] mb-6">Enterprise-Grade Systems</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-[#1a1a2e] mb-6">Comprehensive Services</h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-6">
-                We operate a fleet of enterprise-level unmanned aerial systems equipped with
-                advanced sensors and imaging payloads. Our platforms are selected for reliability,
-                precision, and the ability to deliver mission-critical data.
+                We offer end-to-end solutions powered by cutting-edge AI and machine learning. 
+                Our AI capabilities include computer vision for object detection and tracking, 
+                autonomous navigation systems, predictive maintenance analytics, and intelligent 
+                data processing. Combined with our parts inventory and engineering services, we 
+                deliver complete intelligent UAV solutions.
               </p>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-[#f8f9fa] border border-gray-200 rounded-xl p-4">
-                  <div className="text-[#1a1a2e] font-semibold mb-1">Multispectral Imaging</div>
-                  <div className="text-gray-500 text-sm">Crop health analytics</div>
+                  <div className="text-[#1a1a2e] font-semibold mb-1">AI/ML Systems</div>
+                  <div className="text-gray-500 text-sm">Computer vision & autonomy</div>
                 </div>
                 <div className="bg-[#f8f9fa] border border-gray-200 rounded-xl p-4">
-                  <div className="text-[#1a1a2e] font-semibold mb-1">Thermal Sensors</div>
-                  <div className="text-gray-500 text-sm">Heat signature detection</div>
+                  <div className="text-[#1a1a2e] font-semibold mb-1">Parts Supply</div>
+                  <div className="text-gray-500 text-sm">Quality components</div>
                 </div>
                 <div className="bg-[#f8f9fa] border border-gray-200 rounded-xl p-4">
-                  <div className="text-[#1a1a2e] font-semibold mb-1">RTK GPS</div>
-                  <div className="text-gray-500 text-sm">Centimeter-level accuracy</div>
+                  <div className="text-[#1a1a2e] font-semibold mb-1">Custom Builds</div>
+                  <div className="text-gray-500 text-sm">Tailored UAV systems</div>
                 </div>
                 <div className="bg-[#f8f9fa] border border-gray-200 rounded-xl p-4">
-                  <div className="text-[#1a1a2e] font-semibold mb-1">4K Imaging</div>
-                  <div className="text-gray-500 text-sm">High-resolution capture</div>
+                  <div className="text-[#1a1a2e] font-semibold mb-1">Consultation</div>
+                  <div className="text-gray-500 text-sm">Expert technical advice</div>
+                </div>
+                <div className="bg-[#f8f9fa] border border-gray-200 rounded-xl p-4">
+                  <div className="text-[#1a1a2e] font-semibold mb-1">Engineering</div>
+                  <div className="text-gray-500 text-sm">CAD design & prototyping</div>
+                </div>
+                <div className="bg-[#f8f9fa] border border-gray-200 rounded-xl p-4">
+                  <div className="text-[#1a1a2e] font-semibold mb-1">Data Analytics</div>
+                  <div className="text-gray-500 text-sm">AI-powered insights</div>
                 </div>
               </div>
             </motion.div>

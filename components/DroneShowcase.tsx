@@ -9,28 +9,34 @@ const smoothEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const specs = [
   { 
-    value: '45', 
-    unit: 'min', 
-    label: 'Flight Time', 
-    description: 'Extended endurance for comprehensive mission coverage',
+    value: 'AI/ML', 
+    unit: 'Systems', 
+    label: 'Intelligent Solutions', 
+    description: 'Computer vision, autonomous navigation, and predictive analytics',
   },
   { 
-    value: '10', 
-    unit: 'km', 
-    label: 'Operational Range', 
-    description: 'Long-distance capability for wide-area operations',
+    value: 'Custom', 
+    unit: 'Builds', 
+    label: 'UAV Assembly', 
+    description: 'Tailored drone systems designed for your specific requirements',
   },
   { 
-    value: '4K', 
-    unit: '60fps', 
-    label: 'Imaging Resolution', 
-    description: 'Professional-grade aerial data capture',
+    value: '100+', 
+    unit: 'Parts', 
+    label: 'Component Catalog', 
+    description: 'Extensive inventory of motors, ESCs, frames, and accessories',
   },
   { 
-    value: 'AI', 
-    unit: 'Powered', 
-    label: 'Navigation System', 
-    description: 'Intelligent autonomous flight operations',
+    value: 'Expert', 
+    unit: 'Advice', 
+    label: 'Technical Consultation', 
+    description: 'Professional guidance on system design and implementation',
+  },
+  { 
+    value: 'CAD', 
+    unit: 'Design', 
+    label: 'Mechanical Engineering', 
+    description: 'Precision design and prototyping for aerospace components',
   },
 ];
 
@@ -59,13 +65,13 @@ export default function DroneShowcase() {
           className="text-center mb-20"
         >
           <span className="text-[#2d5a8a] text-sm font-semibold uppercase tracking-wider mb-4 block">
-            Platform Specifications
+            What We Offer
           </span>
           <h2 className="text-headline text-[#1a1a2e] mb-6">
-            Engineered for <span className="gradient-text-primary">Precision</span>
+            Complete <span className="gradient-text-primary">Solutions</span>
           </h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Every system component optimized for reliability, accuracy, and mission success
+            From AI-powered autonomous systems to individual components and full system integration
           </p>
         </motion.div>
 
@@ -128,10 +134,10 @@ export default function DroneShowcase() {
         >
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { label: 'Max Velocity', value: '65 km/h' },
-              { label: 'Wind Tolerance', value: 'Level 4-5' },
-              { label: 'Operating Temp', value: '0°C to 40°C' },
-              { label: 'Payload Capacity', value: 'Up to 2 kg' },
+              { label: 'AI Models Deployed', value: '10+' },
+              { label: 'Custom Builds', value: '50+' },
+              { label: 'Consultation Hours', value: '500+' },
+              { label: 'Engineering Projects', value: '30+' },
             ].map((item) => (
               <div key={item.label} className="text-center">
                 <div className="text-2xl md:text-3xl font-bold text-white mb-1">{item.value}</div>

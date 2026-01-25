@@ -4,11 +4,12 @@ import { motion } from 'framer-motion';
 import { useState } from 'react';
 
 const services = [
+  'Drone Systems & Parts',
+  'AI & Machine Learning',
+  'Technical Consultation',
+  'Mechanical Engineering',
   'Precision Agriculture',
-  'Security & Surveillance',
-  'Emergency Response',
   'Infrastructure Inspection',
-  'Aerial Surveying',
   'Custom Solution',
 ];
 
