@@ -28,7 +28,8 @@ const capabilities = [
 // Total number of frames - skip dark frames at start and end
 const FRAME_START = 10; // Skip first 10 dark frames
 const FRAME_END = 72; // Skip last 10 dark frames
-const FRAME_COUNT = FRAME_END - FRAME_START;
+const FRAME_STEP = 2; // Load every 2nd frame for better performance (31 frames instead of 62)
+const FRAME_COUNT = Math.floor((FRAME_END - FRAME_START) / FRAME_STEP);
 
 // Dynamic text content based on frame progress
 const frameContent = [
@@ -64,6 +65,7 @@ export default function VideoShowcase() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [images, setImages] = useState<HTMLImageElement[]>([]);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
   const [currentFrame, setCurrentFrame] = useState(0);
   const [currentContent, setCurrentContent] = useState(frameContent[0]);
   
@@ -72,24 +74,34 @@ export default function VideoShowcase() {
     offset: ['start start', 'end end'],
   });
 
-  // Load only the good frames (skip dark ones)
+  // Load only the good frames (skip dark ones) - load every 2nd frame for performance
   useEffect(() => {
     const loadedImages: HTMLImageElement[] = [];
     let loadedCount = 0;
 
-    for (let i = FRAME_START; i < FRAME_END; i++) {
+    for (let i = FRAME_START; i < FRAME_END; i += FRAME_STEP) {
       const img = new window.Image();
       const frameNumber = i.toString().padStart(3, '0');
       img.src = `/assets/sqeantial files/A_cinematic_drone_202601252333_qtjih (1)_${frameNumber}.webp`;
       
       img.onload = () => {
         loadedCount++;
+        setLoadingProgress(Math.round((loadedCount / FRAME_COUNT) * 100));
         if (loadedCount === FRAME_COUNT) {
           setImagesLoaded(true);
         }
       };
       
-      loadedImages[i - FRAME_START] = img;
+      img.onerror = () => {
+        loadedCount++;
+        setLoadingProgress(Math.round((loadedCount / FRAME_COUNT) * 100));
+        if (loadedCount === FRAME_COUNT) {
+          setImagesLoaded(true);
+        }
+      };
+      
+      const index = Math.floor((i - FRAME_START) / FRAME_STEP);
+      loadedImages[index] = img;
     }
     
     setImages(loadedImages);
@@ -238,13 +250,20 @@ export default function VideoShowcase() {
         </motion.div>
 
         {/* Animation container */}
-        <div className="relative flex-1 flex items-center justify-center">
+        <div className="relative flex-1 flex items-center justify-center bg-black">
           <div className="absolute inset-0 flex items-center justify-center">
             {!imagesLoaded && (
-              <div className="absolute inset-0 flex items-center justify-center z-10">
+              <div className="absolute inset-0 flex items-center justify-center z-10 bg-black">
                 <div className="text-center">
                   <div className="w-12 h-12 sm:w-16 sm:h-16 border-4 border-[#2d5a8a] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                  <p className="text-white text-xs sm:text-sm px-4">Loading transformation...</p>
+                  <p className="text-white text-xs sm:text-sm px-4 mb-2">Loading transformation...</p>
+                  <div className="w-48 h-2 bg-white/10 rounded-full overflow-hidden mx-auto">
+                    <div 
+                      className="h-full bg-[#2d5a8a] transition-all duration-300"
+                      style={{ width: `${loadingProgress}%` }}
+                    />
+                  </div>
+                  <p className="text-white/60 text-xs mt-2">{loadingProgress}%</p>
                 </div>
               </div>
             )}
