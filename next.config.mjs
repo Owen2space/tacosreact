@@ -92,18 +92,6 @@ const nextConfig = {
       { source: '/services', destination: '/#services', permanent: true },
     ];
   },
-
-  // Handle static files with spaces in names
-  async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: '/assets/sqeantial%20files/:path*',
-          destination: '/assets/sqeantial files/:path*',
-        },
-      ],
-    };
-  },
 };
 
 export default nextConfig;
